@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 // 방을 만들고 방을 기준으로 복도를 만들고 벽을 만드는 클래스
 public class MakeRandomMap : MonoBehaviour
@@ -31,6 +33,10 @@ public class MakeRandomMap : MonoBehaviour
     private GameObject Portal; //부모 포탈
     [SerializeField]
     private GameObject OutPortal; //부모 포탈
+    [SerializeField]
+    private Tilemap tilemap;
+    [SerializeField]
+    private TileBase tile;
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
@@ -76,11 +82,13 @@ public class MakeRandomMap : MonoBehaviour
     }
     //방의 넓이 정하는 함수(취소 길이 와 최대 길이를 기준으로)
     //공간의 중심 찾기
+    List<Vector2> a= new List<Vector2>();
     private HashSet<Vector2Int> MakeRandomRectangleRoom(RectangleSpace space)
     {
         HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
         int width = Random.Range(minRoomWidth, space.width + 1 - distance * 2);
         int height = Random.Range(minRoomHeight, space.height + 1 - distance * 2);
+        a.Add(new Vector2(width, height));
         for (int i = space.Center().x - width / 2; i <= space.Center().x + width / 2; i++)
         {
             for (int j = space.Center().y - height / 2; j < space.Center().y + height / 2; j++)
@@ -120,6 +128,13 @@ public class MakeRandomMap : MonoBehaviour
                 n =i;
             }
         }
+        previousCenter.x= (int)(previousCenter.x + a[n].x/2);
+        Vector3Int spawnPosition =new Vector3Int(previousCenter.x ,previousCenter.y);
+        tilemap.SetTile(spawnPosition, tile);
+        Debug.Log("p" + previousCenter);
+        Debug.Log("t"+tempCenters[n]);
+        Debug.Log(a[n].x);
+
         return tempCenters[n];
     }
     private void MakeOneCorridor(Vector2Int currentCenter,Vector2Int nextCenter)

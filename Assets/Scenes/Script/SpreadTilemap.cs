@@ -17,8 +17,6 @@ public class SpreadTilemap : MonoBehaviour
     private TileBase[] floorTiles;
     [SerializeField]
     private TileBase wallTile;
-    [SerializeField]
-    private Tilemap ObjedctTiles;
     // 각 타일의 배치 확률 가중치
     [SerializeField]
     private int[] tileWeights;
@@ -33,10 +31,6 @@ public class SpreadTilemap : MonoBehaviour
     {
         SpreadTile(positions, wall, wallTile);
     }//장애물 함수
-    public void AddTileToObjedctTiles(Vector2Int position, TileBase tile)
-    {
-        ObjedctTiles.SetTile((Vector3Int)position, tile);
-    }
     private void SpreadTile(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
         foreach (var position in positions)
@@ -50,16 +44,7 @@ public class SpreadTilemap : MonoBehaviour
         {
             TileBase selectedTile = GetRandomTileWithWeight(floorTiles, tileWeights);
 
-            if (selectedTile != null)
-            {
                 floor.SetTile((Vector3Int)position, selectedTile);
-
-                // 0번 인덱스의 타일은 floor에, 나머지는 ObjectTiles에 저장
-                if (Array.IndexOf(floorTiles, selectedTile) != 0)
-                {
-                    AddTileToObjedctTiles((position), selectedTile);
-                }
-            }
         }
     }
 

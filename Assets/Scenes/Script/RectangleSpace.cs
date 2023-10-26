@@ -17,6 +17,11 @@ public class RectangleSpace : MonoBehaviour
         this.width = width;
         this.height = height;
     }
+    public RectangleSpace( int width, int height)
+    {
+        this.width = width;
+        this.height = height;
+    }
     //사각형의 중간 좌표를 나타내는 함수
     public Vector2Int Center()
     {
