@@ -128,7 +128,7 @@ public class player : MonoBehaviour
         {
             countS = 1;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         isSlash = false;
     }
     private void FixedUpdate()
