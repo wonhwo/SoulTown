@@ -12,11 +12,15 @@ public class SpreadTilemap : MonoBehaviour
     private Tilemap floor;
     [SerializeField]
     private Tilemap wall;
+    [SerializeField]
+    private Tilemap corridor;
     //사용할 타일 에셋
     [SerializeField]
     private TileBase[] floorTiles;
     [SerializeField]
     private TileBase wallTile;
+    [SerializeField]
+    private TileBase corridorTile;
     // 각 타일의 배치 확률 가중치
     [SerializeField]
     private int[] tileWeights;
@@ -30,7 +34,14 @@ public class SpreadTilemap : MonoBehaviour
     public void SpreadWallTilemap(HashSet<Vector2Int> positions)
     {
         SpreadTile(positions, wall, wallTile);
-    }//장애물 함수
+    }
+    public void SpreadCorridorTilemap(HashSet<Vector2Int> positions)
+    {
+        SpreadTile(positions, corridor, corridorTile);
+    }
+
+
+    //장애물 함수
     private void SpreadTile(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
         foreach (var position in positions)

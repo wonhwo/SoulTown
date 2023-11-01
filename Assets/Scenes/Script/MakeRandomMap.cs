@@ -40,6 +40,7 @@ public class MakeRandomMap : MonoBehaviour
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
+    private HashSet<Vector2Int> corridor;
     private void Start()
     {
         StartRandomMap();
@@ -53,21 +54,29 @@ public class MakeRandomMap : MonoBehaviour
         divideSpace.spaceList = new List<RectangleSpace>();
         floor = new HashSet<Vector2Int>();
         wall = new HashSet<Vector2Int>();
+        corridor = new HashSet<Vector2Int>();
         //스페이스 리스트 생성
         divideSpace.DivideRoom(divideSpace.totalSpace);
         //방, 복도, 벽 좌표 저장
         MakeRandomRooms();
 
         MakeCorridors();
-
+        corridor.ExceptWith(floor);
+        wall.ExceptWith(corridor);
+        floor.UnionWith(corridor);
         MakeWall();
+
         //타일 깔기
         spreadTilemap.SpreadFloorTilemap(floor);
         spreadTilemap.SpreadWallTilemap(wall);
+        spreadTilemap.SpreadCorridorTilemap(corridor);
 
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-
+        foreach (Vector2Int position in corridor)
+        {
+            Debug.Log("Corridor Position: " + position.x + ", " + position.y);
+        }
 
     }
     //방을 만드는 함수
@@ -128,43 +137,39 @@ public class MakeRandomMap : MonoBehaviour
                 n =i;
             }
         }
-        previousCenter.x= (int)(previousCenter.x + a[n].x/2);
-        Vector3Int spawnPosition =new Vector3Int(previousCenter.x ,previousCenter.y);
-        tilemap.SetTile(spawnPosition, tile);
-        Debug.Log("p" + previousCenter);
-        Debug.Log("t"+tempCenters[n]);
-        Debug.Log(a[n].x);
+
 
         return tempCenters[n];
     }
-    private void MakeOneCorridor(Vector2Int currentCenter,Vector2Int nextCenter)
+    private void MakeOneCorridor(Vector2Int currentCenter, Vector2Int nextCenter)
     {
         Vector2Int current = new Vector2Int(currentCenter.x, currentCenter.y);
-        Vector2Int next=new Vector2Int(nextCenter.x, nextCenter.y);
-        floor.Add(current);
+        Vector2Int next = new Vector2Int(nextCenter.x, nextCenter.y);
+        corridor.Add(current); // 복도의 좌표를 corridor에 추가
         while (current.x != next.x)
         {
             if (current.x < next.x)
             {
                 current.x += 1;
-                floor.Add(current);
+                corridor.Add(current); // 복도의 좌표를 corridor에 추가
             }
             else
             {
                 current.x -= 1;
-                floor.Add(current);
+                corridor.Add(current); // 복도의 좌표를 corridor에 추가
             }
         }
-        while (current.y != next.y) {
+        while (current.y != next.y)
+        {
             if (current.y < next.y)
             {
                 current.y += 1;
-                floor.Add(current);
+                corridor.Add(current); // 복도의 좌표를 corridor에 추가
             }
             else
             {
                 current.y -= 1;
-                floor.Add(current);
+                corridor.Add(current); // 복도의 좌표를 corridor에 추가
             }
         }
     }
