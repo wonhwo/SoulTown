@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using TMPro;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -41,6 +44,7 @@ public class MakeRandomMap : MonoBehaviour
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
     private HashSet<Vector2Int> corridor;
+    HashSet<Vector2Int> commonTiles;
     private void Start()
     {
         StartRandomMap();
@@ -55,30 +59,72 @@ public class MakeRandomMap : MonoBehaviour
         floor = new HashSet<Vector2Int>();
         wall = new HashSet<Vector2Int>();
         corridor = new HashSet<Vector2Int>();
+        commonTiles = new HashSet<Vector2Int>(wall);
         //스페이스 리스트 생성
         divideSpace.DivideRoom(divideSpace.totalSpace);
         //방, 복도, 벽 좌표 저장
         MakeRandomRooms();
-
         MakeCorridors();
         corridor.ExceptWith(floor);
-        wall.ExceptWith(corridor);
+        commonTiles.IntersectWith(corridor);
         floor.UnionWith(corridor);
         MakeWall();
-
+        findmapping();
         //타일 깔기
         spreadTilemap.SpreadFloorTilemap(floor);
         spreadTilemap.SpreadWallTilemap(wall);
         spreadTilemap.SpreadCorridorTilemap(corridor);
 
+
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        foreach (Vector2Int position in corridor)
+
+        foreach (Vector2Int tile in corridor)
         {
-            Debug.Log("Corridor Position: " + position.x + ", " + position.y);
+            Debug.Log(tile);
+        }
+    }
+    private void findmapping()
+    {
+        List<List<Vector2Int>> multiDimensionalList = new List<List<Vector2Int>>();
+        List<Vector2Int> currentGroup = new List<Vector2Int>();
+
+        foreach (Vector2Int tile in corridor)
+        {
+            if (currentGroup.Count == 0)
+            {
+                // 첫 좌표인 경우 새로운 그룹 시작
+                currentGroup.Add(tile);
+            }
+            else
+            {
+                Vector2Int lastTile = currentGroup[currentGroup.Count - 1];
+                // 변동이 발생하는 조건 확인 (예: x 또는 y가 1 이상 차이)
+                if (Mathf.Abs(tile.x - lastTile.x) > 1 || Mathf.Abs(tile.y - lastTile.y) > 1)
+                {
+                    // 새로운 그룹 시작
+                    multiDimensionalList.Add(currentGroup);
+                    currentGroup = new List<Vector2Int>();
+                }
+                currentGroup.Add(tile);
+            }
         }
 
+        // 마지막 그룹 추가
+        if (currentGroup.Count > 0)
+        {
+            multiDimensionalList.Add(currentGroup);
+        }
+
+        // 각 그룹에 접근하여 출력 또는 다른 작업 수행
+        for (int i = 0; i < multiDimensionalList.Count; i++)
+        {
+            Vector2Int firstTile = multiDimensionalList[i][0]; // i번째 그룹의 첫 번째 좌표
+            Vector2Int lastTile = multiDimensionalList[i][multiDimensionalList[i].Count - 1]; // i번째 그룹의 마지막 좌표
+            spreadTilemap.SpreadDoorTilemap(firstTile,lastTile);
+        }
     }
+
     //방을 만드는 함수
     private void MakeRandomRooms()
     {
