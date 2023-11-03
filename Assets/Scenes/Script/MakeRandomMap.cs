@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -29,14 +30,6 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField]
     private GameObject entrance;
     [SerializeField]
-    private GameObject portalPrefab; // 포탈 프리팹을 저장할 변수
-    [SerializeField]
-    private GameObject outPortalPrefab; // 포탈 프리팹을 저장할 변수
-    [SerializeField]
-    private GameObject Portal; //부모 포탈
-    [SerializeField]
-    private GameObject OutPortal; //부모 포탈
-    [SerializeField]
     private Tilemap tilemap;
     [SerializeField]
     private TileBase tile;
@@ -45,6 +38,10 @@ public class MakeRandomMap : MonoBehaviour
     private HashSet<Vector2Int> wall;
     private HashSet<Vector2Int> corridor;
     HashSet<Vector2Int> commonTiles;
+    //방의 x,y좌표
+    List<Vector2> a = new List<Vector2>();
+    //방의 중심 좌표
+    List<Vector2> b = new List<Vector2>();
     private void Start()
     {
         StartRandomMap();
@@ -76,13 +73,8 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadCorridorTilemap(corridor);
 
 
-        player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
+        //player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-
-        foreach (Vector2Int tile in corridor)
-        {
-            Debug.Log(tile);
-        }
     }
     private void findmapping()
     {
@@ -125,6 +117,21 @@ public class MakeRandomMap : MonoBehaviour
         }
     }
 
+    public Vector2 GetRandomSpawnPosition(int index)
+    {
+        // 중심 좌표를 기준으로 가로 길이의 절반과 세로 길이의 절반 계산
+        float halfWidth = a[index].x / 2;
+        float halfHeight = a[index].y / 2;
+
+        // 랜덤한 X 및 Y 좌표 생성
+        float randomX = UnityEngine.Random.Range(-halfWidth, halfWidth);
+        float randomY = UnityEngine.Random.Range(-halfHeight, halfHeight);
+
+        // 중심 좌표에 더하여 최종 스폰 위치 계산
+        Vector2 spawnPosition = b[index] + new Vector2(randomX, randomY);
+
+        return spawnPosition;
+    }
     //방을 만드는 함수
     private void MakeRandomRooms()
     {
@@ -132,17 +139,18 @@ public class MakeRandomMap : MonoBehaviour
         foreach (var space in divideSpace.spaceList){
             HashSet<Vector2Int> positions = MakeRandomRectangleRoom(space);
             floor.UnionWith(positions);
+            b.Add(space.Center());
             //플로어에 좌표 추가 UnionWith 합집합
         }
     }
     //방의 넓이 정하는 함수(취소 길이 와 최대 길이를 기준으로)
     //공간의 중심 찾기
-    List<Vector2> a= new List<Vector2>();
+    
     private HashSet<Vector2Int> MakeRandomRectangleRoom(RectangleSpace space)
     {
         HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
-        int width = Random.Range(minRoomWidth, space.width + 1 - distance * 2);
-        int height = Random.Range(minRoomHeight, space.height + 1 - distance * 2);
+        int width = UnityEngine.Random.Range(minRoomWidth, space.width + 1 - distance * 2);
+        int height = UnityEngine.Random.Range(minRoomHeight, space.height + 1 - distance * 2);
         a.Add(new Vector2(width, height));
         for (int i = space.Center().x - width / 2; i <= space.Center().x + width / 2; i++)
         {
@@ -151,6 +159,8 @@ public class MakeRandomMap : MonoBehaviour
                 positions.Add(new Vector2Int(i, j));
             }
         }
+
+
         return positions;
     }
     private void MakeCorridors()
@@ -170,6 +180,7 @@ public class MakeRandomMap : MonoBehaviour
             currentCenter = nextCenter;
             tempCenters.Remove(currentCenter);
         }
+        
     }
     private Vector2Int ChooseShortestNextCorridor(List<Vector2Int> tempCenters,Vector2Int previousCenter)
     {
