@@ -153,6 +153,8 @@ MonoBehaviour:
   prefabs:
   - {fileID: 4435219164601607993, guid: 63bf10111bdfbc542ada0f843a85ba0e, type: 3}
   enemyBox: {fileID: 967313410}
+  ability: {fileID: 0}
+  door: {fileID: 2030817756}
 --- !u!4 &109245959
 Transform:
   m_ObjectHideFlags: 0
@@ -441,6 +443,7 @@ MonoBehaviour:
     type: 3}
   tilemap: {fileID: 1185860544}
   tile: {fileID: 11400000, guid: 1bdbca09e65972b469a82597b213a4fd, type: 2}
+  rectangleBox: {fileID: 1860515840}
 --- !u!1 &449643199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1528,7 @@ Transform:
   - {fileID: 110783981}
   - {fileID: 412653021}
   - {fileID: 896587131}
+  - {fileID: 1860515841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &754639185
@@ -1573,6 +1577,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 1495171212491831547, guid: 3d698f7c9a9255e4d9ddb70af5403873,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 32767
+      objectReference: {fileID: 0}
     - target: {fileID: 3164512967672778565, guid: 3d698f7c9a9255e4d9ddb70af5403873,
         type: 3}
       propertyPath: m_Size.x
@@ -1591,8 +1600,18 @@ PrefabInstance:
     - target: {fileID: 3164512967672778565, guid: 3d698f7c9a9255e4d9ddb70af5403873,
         type: 3}
       propertyPath: m_Offset.y
-      value: -0.088047266
+      value: -2000
       objectReference: {fileID: 0}
+    - target: {fileID: 5037491493134356275, guid: 3d698f7c9a9255e4d9ddb70af5403873,
+        type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6730211354133491002, guid: 3d698f7c9a9255e4d9ddb70af5403873,
+        type: 3}
+      propertyPath: Spawner
+      value: 
+      objectReference: {fileID: 109245958}
     - target: {fileID: 6730211354133491002, guid: 3d698f7c9a9255e4d9ddb70af5403873,
         type: 3}
       propertyPath: animation
@@ -2082,9 +2101,10 @@ GameObject:
   - component: {fileID: 1185860546}
   - component: {fileID: 1185860544}
   - component: {fileID: 1185860545}
+  - component: {fileID: 1185860547}
   m_Layer: 0
   m_Name: Corridor
-  m_TagString: Untagged
+  m_TagString: Corridor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2167,7 +2187,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2191,6 +2211,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1629335569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!19719996 &1185860547
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185860543}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1472587734
 GameObject:
   m_ObjectHideFlags: 3
@@ -2400,7 +2458,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -3851,6 +3909,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1860515840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860515841}
+  m_Layer: 0
+  m_Name: RectangleBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1860515841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860515840}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 629614301}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030817756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3865,7 +3954,7 @@ GameObject:
   - component: {fileID: 2030817760}
   m_Layer: 0
   m_Name: door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3925,7 +4014,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4039,6 +4128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d13888f686590469bfb88017e9bf0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  makeRandom: {fileID: 412653022}
   floor: {fileID: 1758920909}
   wall: {fileID: 1031270280}
   corridor: {fileID: 1185860544}
@@ -4051,6 +4141,7 @@ MonoBehaviour:
   wallTile: {fileID: 11400000, guid: 2b0897cd242f09a49ac1bb84fc7ee658, type: 2}
   corridorTile: {fileID: 11400000, guid: 8d861f2519c6bac4a99507155479007d, type: 2}
   doorTile: {fileID: 11400000, guid: c675cde5c21669947a9b6fca3991446b, type: 2}
+  levelManager: {fileID: 0}
   tileWeights: 32000000320000000100000001000000
 --- !u!4 &2112701354
 Transform:

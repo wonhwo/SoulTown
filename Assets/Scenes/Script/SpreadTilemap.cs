@@ -1,11 +1,17 @@
+using MoreMountains.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 //바닥, 벽을 설치하는 스크립트
 public class SpreadTilemap : MonoBehaviour
 {
+    [SerializeField]
+    private MakeRandomMap makeRandom;
     //SerializeField 타일맵 프라이빗 변수를 인스펙터 창에서 관리 할 수있게 해주는 함수
     // 타일맵 오브젝트
     [SerializeField]
@@ -16,6 +22,8 @@ public class SpreadTilemap : MonoBehaviour
     private Tilemap corridor;
     [SerializeField]
     private Tilemap door;
+    //[SerializeField]
+    //private Tilemap trriger;
     //사용할 타일 에셋
     [SerializeField]
     private TileBase[] floorTiles;
@@ -25,6 +33,10 @@ public class SpreadTilemap : MonoBehaviour
     private TileBase corridorTile;
     [SerializeField]
     private TileBase doorTile;
+    [SerializeField]
+    //private TileBase noneTile;
+    public LevelManager levelManager = new LevelManager();
+
     // 각 타일의 배치 확률 가중치
     [SerializeField]
     private int[] tileWeights;
@@ -48,6 +60,39 @@ public class SpreadTilemap : MonoBehaviour
         door.SetTile((Vector3Int)firstTile,doorTile);
         door.SetTile((Vector3Int)lastTile, doorTile);
     }
+    /*public void SpreadTrrigerTilemap()
+    {
+        List<List<Vector2Int>> roomCoordinates = new List<List<Vector2Int>>(makeRandom.CalculateRoomArea());
+
+        // 부모 타일맵 (trriger)을 가져옴
+        Tilemap parentTilemap = trriger.GetComponent<Tilemap>();
+
+        // 각 roomCoordinates의 좌표를 순차적으로 자식 타일맵에 추가
+        for (int i = 0; i < roomCoordinates.Count; i++)
+        {
+            // 자식 타일맵을 생성하고 부모 타일맵에 추가
+            GameObject childTilemapObject = new GameObject("ChildTilemap" + i);
+            childTilemapObject.transform.SetParent(trriger.transform);
+
+            Tilemap childTilemap = childTilemapObject.AddComponent<Tilemap>();
+
+            // 추가된 자식 타일맵에 타일 렌더러를 추가
+            TilemapRenderer childRenderer = childTilemapObject.AddComponent<TilemapRenderer>();
+
+            // Tilemap Collider 2D 추가
+            TilemapCollider2D tilemapCollider = childTilemapObject.AddComponent<TilemapCollider2D>();
+            tilemapCollider.isTrigger = true;
+
+            // 태그 설정
+            childTilemapObject.tag = "Room"+i.ToString();
+
+            foreach (Vector2Int coordinate in roomCoordinates[i])
+            {
+                // 좌표를 자식 타일맵에 추가
+                childTilemap.SetTile((Vector3Int)coordinate, noneTile);
+            }
+        }
+    }*/
 
 
     //장애물 함수

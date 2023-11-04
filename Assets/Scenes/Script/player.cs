@@ -15,6 +15,8 @@ public class player : MonoBehaviour
     RectangleSpace rectangleSpace;
     [SerializeField]
     public MakeRandomMap makeRandom;
+    [SerializeField]
+    public Spawner Spawner;
     public GameManager gamemanager;
     public Animator animation;
     public float Speed;
@@ -28,6 +30,8 @@ public class player : MonoBehaviour
     bool isWalking = false;
     bool isEventing = false;
     private Animator lefthandAnimator;
+    // 클래스 내에 배열 선언
+    private List<int> extractedNumbers = new List<int>();
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -46,7 +50,6 @@ public class player : MonoBehaviour
 
 
     }
-    String PortalText; String PortalChar; int PortalNum;char lastChar; String text;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Object")
@@ -57,7 +60,28 @@ public class player : MonoBehaviour
         if (collision.CompareTag("Portal"))
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
-            LevelManager.levelManager.spawner.Return_RandomPosition();
+        }
+        if (collision.CompareTag("Rectangle"))
+        {
+            string name = collision.name;
+            if (!string.IsNullOrEmpty(name) && char.IsDigit(name[name.Length - 1]))
+            {
+                // 마지막 글자를 추출하고 정수로 변환
+                int lastCharacter = int.Parse(name[name.Length - 1].ToString());
+
+                // 배열에 이미 있는지 확인
+                if (extractedNumbers.Contains(lastCharacter))
+                {
+                    // 이미 추출한 숫자와 동일한 경우 함수를 호출하지 않음
+                    return;
+                }
+
+                // lastCharacter를 배열에 추가
+                extractedNumbers.Add(lastCharacter);
+
+                // Spawner.Return_RandomPosition 함수 호출
+                Spawner.Return_RandomPosition(lastCharacter);
+            }
         }
         else
         {
