@@ -33,8 +33,6 @@ public class SpreadTilemap : MonoBehaviour
     private TileBase corridorTile;
     [SerializeField]
     private TileBase doorTile;
-    [SerializeField]
-    //private TileBase noneTile;
     public LevelManager levelManager = new LevelManager();
 
     // 각 타일의 배치 확률 가중치

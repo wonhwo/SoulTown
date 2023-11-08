@@ -10,7 +10,6 @@ public class ability : MonoBehaviour
     GameObject gameObject;
 
     // 유닛이 파괴되었을 때 호출될 콜백 델리게이트
-    public Action OnUnitDestroyed;
 
     void Start()
     {
@@ -36,8 +35,6 @@ public class ability : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
 
-        // 유닛 파괴 이벤트를 호출
-        OnUnitDestroyed?.Invoke();
     }
 
 }

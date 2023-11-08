@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("weapon"))
         { 
-            Debug.Log("test");
+            //Debug.Log("test");
             animator.SetTrigger("Hurt");
             ability.Hurt();
         }

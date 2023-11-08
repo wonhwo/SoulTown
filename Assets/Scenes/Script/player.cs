@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using UnityEditor.Hardware;
+using Unity.VisualScripting;
 
 public class player : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class player : MonoBehaviour
     public MakeRandomMap makeRandom;
     [SerializeField]
     public Spawner Spawner;
+    [SerializeField]
+    public EnemyBoxcontroller enemyBoxcontroller;
     public GameManager gamemanager;
     public Animator animation;
     public float Speed;
@@ -47,9 +50,10 @@ public class player : MonoBehaviour
         {
             gamemanager.Action(scanObject);
         }
-
+        enemyBoxcontroller.findEnemy();
 
     }
+    bool isEnemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Object")
@@ -61,14 +65,29 @@ public class player : MonoBehaviour
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
         }
-        if (collision.CompareTag("Rectangle"))
+        /*if (collision.CompareTag("Rectangle"))
         {
+            isEnemy = true;
             string name = collision.name;
-            if (!string.IsNullOrEmpty(name) && char.IsDigit(name[name.Length - 1]))
+            int lastCharacter = -1; // 기본값 설정
+            if (!string.IsNullOrEmpty(name))
             {
-                // 마지막 글자를 추출하고 정수로 변환
-                int lastCharacter = int.Parse(name[name.Length - 1].ToString());
+                int lastIndex = name.Length - 1;
+                // 마지막 글자부터 시작해서 숫자를 찾음
+                while (lastIndex >= 0 && char.IsDigit(name[lastIndex]))
+                {
+                    lastIndex--;
+                }
+                if (lastIndex < name.Length - 1)
+                {
+                    // 숫자를 찾았을 경우, 해당 숫자를 추출하고 정수로 변환
+                    lastCharacter = int.Parse(name.Substring(lastIndex + 1));
+                }
+            }
 
+            // lastCharacter가 유효한 값을 가지고 있을 때만 실행
+            if (lastCharacter >= 0)
+            {
                 // 배열에 이미 있는지 확인
                 if (extractedNumbers.Contains(lastCharacter))
                 {
@@ -80,14 +99,55 @@ public class player : MonoBehaviour
                 extractedNumbers.Add(lastCharacter);
 
                 // Spawner.Return_RandomPosition 함수 호출
-                Spawner.Return_RandomPosition(lastCharacter);
+                StartCoroutine(SpawnMonsterWithDelay(lastCharacter));
             }
-        }
+        }*/
         else
         {
             scanObject = null;
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rectangle"))
+        {
+            isEnemy = true;
+            string name = collision.name;
+            int lastCharacter = -1; // 기본값 설정
+            if (!string.IsNullOrEmpty(name))
+            {
+                int lastIndex = name.Length - 1;
+                // 마지막 글자부터 시작해서 숫자를 찾음
+                while (lastIndex >= 0 && char.IsDigit(name[lastIndex]))
+                {
+                    lastIndex--;
+                }
+                if (lastIndex < name.Length - 1)
+                {
+                    // 숫자를 찾았을 경우, 해당 숫자를 추출하고 정수로 변환
+                    lastCharacter = int.Parse(name.Substring(lastIndex + 1));
+                }
+            }
+
+            // lastCharacter가 유효한 값을 가지고 있을 때만 실행
+            if (lastCharacter >= 0)
+            {
+                // 배열에 이미 있는지 확인
+                if (extractedNumbers.Contains(lastCharacter))
+                {
+                    // 이미 추출한 숫자와 동일한 경우 함수를 호출하지 않음
+                    return;
+                }
+
+                // lastCharacter를 배열에 추가
+                extractedNumbers.Add(lastCharacter);
+
+                // Spawner.Return_RandomPosition 함수 호출
+                StartCoroutine(SpawnMonsterWithDelay(lastCharacter));
+            }
+        }
+    }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -95,9 +155,30 @@ public class player : MonoBehaviour
         {
             isEventing = false;
         }
+        if(other.gameObject.tag== "Rectangle")
+        {
+            isEnemy = false;
+        }
+    }
+    IEnumerator SpawnMonsterWithDelay(int lastCharacter)
+    {
+        yield return new WaitForSeconds(1.0f); // 1초 대기
+        Debug.Log(lastCharacter+","+isEnemy);
+        if (isEnemy)
+        {
+            Spawner.Return_RandomPosition(lastCharacter); // 몬스터 소환
+
+        }
+        else
+        {
+            extractedNumbers.Remove(lastCharacter);
+            isEnemy = true;
+        }
+
     }
 
-    int countS=1;
+
+    int countS =1;
     static bool isSlash = false;
     private void Animations()
     {

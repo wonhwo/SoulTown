@@ -37,6 +37,8 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField]
     public GameObject rectangleBox;
 
+
+
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
     private HashSet<Vector2Int> corridor;
@@ -76,11 +78,14 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadCorridorTilemap(corridor);
         //spreadTilemap.SpreadTrrigerTilemap();
         CreateAndPositionRectangle();
+        
+
 
         //player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
     }
-    HashSet<Vector2Int> room;
+
+    //HashSet<Vector2Int> room;
     /*public List<List<Vector2Int>> CalculateRoomArea()
     {
         List<List<Vector2Int>> rooms = new List<List<Vector2Int>>(); // 모든 방의 좌표 목록을 저장하는 리스트
