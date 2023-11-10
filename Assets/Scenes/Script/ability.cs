@@ -20,7 +20,7 @@ public class ability : MonoBehaviour
     {
         if (hp < 1)
         {
-            animator.SetTrigger("Death");
+
             StartCoroutine(DestroyAfterDelay(1.0f));
         }
     }
@@ -32,6 +32,8 @@ public class ability : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay(float delay)
     {
+        animator.SetTrigger("Death");
+        
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
 
