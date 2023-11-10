@@ -46,10 +46,6 @@ public class player : MonoBehaviour
         h = gamemanager.isAction ?  0 :Input.GetAxisRaw("Horizontal");
         v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
         Animations();
-        if (Input.GetButtonDown("Jump") && scanObject != null && isEventing)
-        {
-            gamemanager.Action(scanObject);
-        }
         enemyBoxcontroller.findEnemy();
 
     }
@@ -65,43 +61,6 @@ public class player : MonoBehaviour
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
         }
-        /*if (collision.CompareTag("Rectangle"))
-        {
-            isEnemy = true;
-            string name = collision.name;
-            int lastCharacter = -1; // 기본값 설정
-            if (!string.IsNullOrEmpty(name))
-            {
-                int lastIndex = name.Length - 1;
-                // 마지막 글자부터 시작해서 숫자를 찾음
-                while (lastIndex >= 0 && char.IsDigit(name[lastIndex]))
-                {
-                    lastIndex--;
-                }
-                if (lastIndex < name.Length - 1)
-                {
-                    // 숫자를 찾았을 경우, 해당 숫자를 추출하고 정수로 변환
-                    lastCharacter = int.Parse(name.Substring(lastIndex + 1));
-                }
-            }
-
-            // lastCharacter가 유효한 값을 가지고 있을 때만 실행
-            if (lastCharacter >= 0)
-            {
-                // 배열에 이미 있는지 확인
-                if (extractedNumbers.Contains(lastCharacter))
-                {
-                    // 이미 추출한 숫자와 동일한 경우 함수를 호출하지 않음
-                    return;
-                }
-
-                // lastCharacter를 배열에 추가
-                extractedNumbers.Add(lastCharacter);
-
-                // Spawner.Return_RandomPosition 함수 호출
-                StartCoroutine(SpawnMonsterWithDelay(lastCharacter));
-            }
-        }*/
         else
         {
             scanObject = null;
@@ -182,53 +141,36 @@ public class player : MonoBehaviour
     static bool isSlash = false;
     private void Animations()
     {
-
-        // �ȱ� �ִϸ��̼� ����
-        if (!isJumping)
+        transform.localScale = new Vector3((h < 0) ? 1 : ((h > 0) ? -1 : transform.localScale.x), 1, 1);
+        if (h != 0 || v != 0)
         {
-            isWalking = (h != 0 || v != 0);
-
+            animation.SetFloat("RunState", 0.5f);
+        }
+        else
+        {
+            animation.SetFloat("RunState", 0);
         }
 
-        animation.SetBool("Walking", isWalking);
-
-        // �ȴ� ���⿡ ���� ĳ���� ������ ����
-        transform.localScale = new Vector3((h < 0) ? -1 : ((h > 0) ? 1 : transform.localScale.x), 1, 1);
-
-        // "Jump" Ű (��: 'C' Ű) ó��
-        if (Input.GetKeyDown(KeyCode.C) && !isJumping)
-        {
-            // "Jump" �ִϸ��̼� ����
-            animation.SetTrigger("Jumping");
-            isJumping = true;
-            isWalking = false;
-            // ���⿡ ���� ���� �߰�
-        }
-
-        // "Jump" Ű�� ���� ��
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            // "Jump" �ִϸ��̼� ���ߵ��� ����
-            animation.ResetTrigger("Jumping");
-            isJumping = false;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl)&&!isSlash)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !isSlash)
         {
             StartCoroutine(AnimationDelay());
+            
             
         }
     }
     private IEnumerator AnimationDelay()
     {
         isSlash = true;
+        animation.SetTrigger("Attack");
         lefthandAnimator.SetInteger("num", countS);
         lefthandAnimator.SetTrigger("Slash");
+        
         countS++;
-        if (countS > 3)
+        if (countS > 2)
         {
             countS = 1;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.55f);
         isSlash = false;
     }
     private void FixedUpdate()
