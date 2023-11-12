@@ -22,7 +22,7 @@ public class ability : MonoBehaviour
         if (hp < 1)
         {
 
-            StartCoroutine(DestroyAfterDelay(1.0f));
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
     }
 
