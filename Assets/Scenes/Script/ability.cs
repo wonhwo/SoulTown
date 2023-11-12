@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ability : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class ability : MonoBehaviour
     Animator animator;
     [SerializeField]
     GameObject gameObject;
-
+    [SerializeField]
+    public Image HP;
     // 유닛이 파괴되었을 때 호출될 콜백 델리게이트
-
     void Start()
     {
         animator = GetComponent < Animator>();
@@ -28,6 +29,7 @@ public class ability : MonoBehaviour
     public void Hurt()
     {
         hp = hp - 50;
+        HP.fillAmount = (float)hp/100;
     }
 
     private IEnumerator DestroyAfterDelay(float delay)

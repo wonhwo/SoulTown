@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomMap: {fileID: 412653022}
   prefabs:
-  - {fileID: 4435219164601607993, guid: 63bf10111bdfbc542ada0f843a85ba0e, type: 3}
+  - {fileID: 8477828974350164502, guid: 6c875a744256cb9498e4dde8a8242199, type: 3}
   enemyBox: {fileID: 967313410}
   door: {fileID: 2030817756}
 --- !u!4 &109245959
