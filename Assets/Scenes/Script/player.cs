@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using UnityEditor.Hardware;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -32,39 +33,65 @@ public class player : MonoBehaviour
     bool isJumping = false;
     bool isWalking = false;
     bool isEventing = false;
+    private bool isHurt = false;
     private Animator lefthandAnimator;
     // 클래스 내에 배열 선언
     private List<int> extractedNumbers = new List<int>();
+    //HP
+    [SerializeField]
+    public Image HPbar;
+    private int HP = 100;
+    //데미지
+    private int damage;
     void Awake()
     {
+
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
         lefthandAnimator = transform.Find("Sword").GetComponent<Animator>();
     }
     void Update()
     {
-        h = gamemanager.isAction ?  0 :Input.GetAxisRaw("Horizontal");
-        v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        if (!isHurt)
+        {
+            h = gamemanager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
+            v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        }
+
         Animations();
+        if(Input.GetButtonDown("Jump") && scanObject!=null)
+        {
+            Debug.Log(scanObject);
+            gamemanager.Action(scanObject);
+        }
         enemyBoxcontroller.findEnemy();
 
     }
     bool isEnemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isHurt) // 이미 피격 중인 경우, 더 이상 처리하지 않음
+            return;
         if (collision.gameObject.tag == "Object")
         {
             scanObject = collision.gameObject;
             isEventing = true;
+            
         }
         if (collision.CompareTag("Portal"))
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
         }
-        else
+        if (collision.CompareTag("Enemy")&&!isSlash)
         {
-            scanObject = null;
+            if (collision.gameObject.name.Equals("slime"))
+            {
+                damage = 20;
+            }
+            StartCoroutine(HurtDelay(1.0f));
+            
         }
+
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -112,7 +139,7 @@ public class player : MonoBehaviour
     {
         if (other.gameObject.tag == "Object")
         {
-            isEventing = false;
+                scanObject = null;
         }
         if(other.gameObject.tag== "Rectangle")
         {
@@ -135,6 +162,16 @@ public class player : MonoBehaviour
         }
 
     }
+    private IEnumerator HurtDelay(float delay)
+    {
+        HP = HP - damage;
+        HPbar.fillAmount = HP / 100;
+        animation.SetTrigger("Stun");
+        Debug.Log("test");
+        isHurt = true; // 피격 상태로 설정
+        yield return new WaitForSeconds(delay);
+        isHurt = false; // 일정 시간 후 피격 상태 해제
+    }
 
 
     int countS =1;
@@ -153,9 +190,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && !isSlash)
         {
-            StartCoroutine(AnimationDelay());
-            
-            
+            StartCoroutine(AnimationDelay()); 
         }
     }
     private IEnumerator AnimationDelay()
