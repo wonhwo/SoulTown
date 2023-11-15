@@ -1,40 +1,50 @@
+using MoreMountains.TopDownEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
+    int hp = 100;
     [SerializeField]
-    private ability ability;
+    GameObject gameObject;
+    [SerializeField]
+    public Image HP;
+    private static int damage;
 
     private bool canTakeDamage = true;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.gameObject.CompareTag("weapon") && canTakeDamage)
+        if (hp < 1)
         {
-            StartCoroutine(HurtWithDelay());
+
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
     }
-
-    private IEnumerator HurtWithDelay()
+    public void SetDamage(int damageAmount)
     {
-        // 공격을 받을 수 없는 상태로 변경
-        canTakeDamage = false;
+        // 변수 전달 받기
+        damage = damageAmount;
         animator.SetTrigger("Hurt");
-        ability.Hurt();
-        // 0.5초 대기
-        yield return new WaitForSeconds(0.5f);
+        Hurt();
 
-        // 0.5초 후에 실행될 내용
-        
-        // 다른 Hurt 메서드 호출
-        
 
-        // 공격을 받을 수 있는 상태로 변경
-        canTakeDamage = true;
+        // 여기에서 health 변수 사용 또는 다른 동작 수행
     }
+    public void Hurt()
+    {
+        hp = hp - damage;
+        HP.fillAmount = (float)hp / 100;
+    }
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        animator.SetTrigger("Death");
 
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+
+    }
 }

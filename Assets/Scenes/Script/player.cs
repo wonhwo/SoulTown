@@ -21,6 +21,8 @@ public class player : MonoBehaviour
     public Spawner Spawner;
     [SerializeField]
     public EnemyBoxcontroller enemyBoxcontroller;
+    [SerializeField]
+    private Weapon weapon;
     public GameManager gamemanager;
     public Animator animation;
     public float Speed;
@@ -30,11 +32,8 @@ public class player : MonoBehaviour
     float h;
     float v;
     bool isHorizonMove;
-    bool isJumping = false;
-    bool isWalking = false;
     bool isEventing = false;
     private bool isHurt = false;
-    private Animator lefthandAnimator;
     // 클래스 내에 배열 선언
     private List<int> extractedNumbers = new List<int>();
     //HP
@@ -48,7 +47,6 @@ public class player : MonoBehaviour
 
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
-        lefthandAnimator = transform.Find("Sword").GetComponent<Animator>();
     }
     void Update()
     {
@@ -56,6 +54,11 @@ public class player : MonoBehaviour
         {
             h = gamemanager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
             v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        }
+        if (isHurt)
+        {
+            h = 0;
+            v = 0;
         }
 
         Animations();
@@ -82,16 +85,6 @@ public class player : MonoBehaviour
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
         }
-        if (collision.CompareTag("Enemy")&&!isSlash)
-        {
-            if (collision.gameObject.name.Equals("slime"))
-            {
-                damage = 20;
-            }
-            StartCoroutine(HurtDelay(1.0f));
-            
-        }
-
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -133,8 +126,6 @@ public class player : MonoBehaviour
             }
         }
     }
-
-
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Object")
@@ -160,22 +151,17 @@ public class player : MonoBehaviour
             extractedNumbers.Remove(lastCharacter);
             isEnemy = true;
         }
-
     }
-    private IEnumerator HurtDelay(float delay)
+    public IEnumerator HurtDelay(float delay)
     {
-        HP = HP - damage;
-        HPbar.fillAmount = HP / 100;
+        HP = HP - 20;
+        HPbar.fillAmount =(float)HP / 100;
         animation.SetTrigger("Stun");
         Debug.Log("test");
         isHurt = true; // 피격 상태로 설정
         yield return new WaitForSeconds(delay);
         isHurt = false; // 일정 시간 후 피격 상태 해제
     }
-
-
-    int countS =1;
-    static bool isSlash = false;
     private void Animations()
     {
         transform.localScale = new Vector3((h < 0) ? 1 : ((h > 0) ? -1 : transform.localScale.x), 1, 1);
@@ -187,33 +173,11 @@ public class player : MonoBehaviour
         {
             animation.SetFloat("RunState", 0);
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !isSlash)
-        {
-            StartCoroutine(AnimationDelay()); 
-        }
-    }
-    private IEnumerator AnimationDelay()
-    {
-        isSlash = true;
-        animation.SetTrigger("Attack");
-        lefthandAnimator.SetInteger("num", countS);
-        lefthandAnimator.SetTrigger("Slash");
-        
-        countS++;
-        if (countS > 2)
-        {
-            countS = 1;
-        }
-        yield return new WaitForSeconds(0.55f);
-        isSlash = false;
     }
     private void FixedUpdate()
     {
-
         if (rigid != null)
         {
-
             Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
             rigid.velocity = new Vector2(h, v) * Speed;
         }
