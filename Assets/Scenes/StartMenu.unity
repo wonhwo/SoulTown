@@ -13900,7 +13900,6 @@ MonoBehaviour:
   scanObject: {fileID: 0}
   isAction: 0
   SkillUi: {fileID: 0}
-  playerPrefab: {fileID: 0}
 --- !u!4 &980133419
 Transform:
   m_ObjectHideFlags: 0
@@ -14112,6 +14111,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 248300667537301569, guid: fe0a7dfca61fa134290f61a48e6a6927,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616913170904511893, guid: fe0a7dfca61fa134290f61a48e6a6927,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616913170904511893, guid: fe0a7dfca61fa134290f61a48e6a6927,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616913170904511893, guid: fe0a7dfca61fa134290f61a48e6a6927,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6597238248407879361, guid: fe0a7dfca61fa134290f61a48e6a6927,
         type: 3}
       propertyPath: m_Pivot.x

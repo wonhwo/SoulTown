@@ -19,11 +19,6 @@ public class playerBody : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             StartCoroutine(player.HurtDelay(1.0f));
-            // 넉백을 주고자 하는 방향 계산
-            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
-
-            // 넉백을 가하는 함수 호출
-            player.ApplyKnockback(knockbackDirection);
         }
     }
 }

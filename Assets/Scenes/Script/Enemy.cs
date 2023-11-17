@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
-    int hp = 100;
+    [SerializeField]
+    EnemyStats enemyStats =new EnemyStats();
+     int hp;
     [SerializeField]
     GameObject gameObject;
     [SerializeField]
@@ -16,11 +18,14 @@ public class Enemy : MonoBehaviour
     private static int damage;
 
     private bool canTakeDamage = true;
+    private void Start()
+    {
+        hp = (int)enemyStats.health;
+    }
     void Update()
     {
         if (hp < 1)
         {
-
             StartCoroutine(DestroyAfterDelay(0.5f));
         }
     }
@@ -41,7 +46,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator DestroyAfterDelay(float delay)
     {
-        animator.SetTrigger("Death");
+        animator.SetTrigger("Die");
 
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);

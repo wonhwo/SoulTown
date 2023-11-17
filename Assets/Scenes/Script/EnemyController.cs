@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float pursuitSpeed;
-    public float wanderSpeed;
-    public float currentSpeed;
+    [SerializeField]
+    private EnemyStats enemyStats;
+    private float pursuitSpeed;
+    private float wanderSpeed;
+    private float currentSpeed;
 
     public float directionChangeInterval;
     public bool follwPlayer;
@@ -23,6 +25,9 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        pursuitSpeed = enemyStats.moveSpeed;
+        wanderSpeed = enemyStats.moveSpeed;
+        currentSpeed = enemyStats.moveSpeed;
         animator = GetComponent<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
@@ -72,12 +77,24 @@ public class EnemyController : MonoBehaviour
 
             if (rigidbodyToMove != null)
             {
-                animator.SetBool("isWalking", true);
+                // 이동 방향의 X 성분을 확인하여 플립 여부 결정
+                bool isFacingRight = (endPosition.x - rigidbodyToMove.position.x) > 0;
+
+                // 플립 설정
+                if (isFacingRight)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1); // 우측 방향
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1); // 좌측 방향
+                }
+                animator.SetFloat("RunState", 0.5f);
 
                 if (IsWallInFront())
                 {
                     // 벽이 감지되면 이동을 중지하도록 변경
-                    animator.SetBool("isWalking", false);
+                    animator.SetFloat("RunState", 0.0f);
                     break;
                 }
 
@@ -89,7 +106,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        animator.SetBool("isWalking", false);
+        animator.SetFloat("RunState", 0);
     }
     private bool IsWallInFront()
     {
@@ -98,7 +115,6 @@ public class EnemyController : MonoBehaviour
 
         if (hit.collider != null && hit.collider.CompareTag("Wall"))
         {
-            Debug.Log("Wall detected!");
             return true;
         }
 
@@ -122,7 +138,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("isWalking", false);
+            animator.SetFloat("RunState", 0);
             currentSpeed = wanderSpeed;
             if (moveCoroutine != null)
             {

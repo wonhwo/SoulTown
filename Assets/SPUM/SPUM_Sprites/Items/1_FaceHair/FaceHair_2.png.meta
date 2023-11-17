@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e39e7d359fbf409494893b8bf1da5a1
+guid: bf396ee22a706a24dba8f20538815062
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -126,3 +126,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 188715
+  packageName: 2D Pixel Unit Maker - SPUM
+  packageVersion: 1.6.4
+  assetPath: Assets/SPUM/SPUM_Sprites/Items/1_FaceHair/FaceHair_2.png
+  uploadId: 624522

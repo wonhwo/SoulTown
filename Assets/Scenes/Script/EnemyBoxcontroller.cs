@@ -10,7 +10,7 @@ public class EnemyBoxcontroller : MonoBehaviour
 
     private void Update()
     {
-        
+        findEnemy();
     }
     public void findEnemy()
     {

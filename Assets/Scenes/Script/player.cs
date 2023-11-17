@@ -152,10 +152,11 @@ public class player : MonoBehaviour
     }
     public IEnumerator HurtDelay(float delay)
     {
-        camara.ShakeCamera();
+        
         HP = HP - 20;
         HPbar.fillAmount =(float)HP / 100;
         animation.SetTrigger("Stun");
+        camara.ShakeCamera();
         Debug.Log("test");
         isHurt = true; // 피격 상태로 설정
         yield return new WaitForSeconds(delay);
@@ -166,7 +167,7 @@ public class player : MonoBehaviour
         transform.localScale = new Vector3((h < 0) ? 1 : ((h > 0) ? -1 : transform.localScale.x), 1, 1);
         if (h != 0 || v != 0)
         {
-            animation.SetFloat("RunState", 0.5f);
+            animation.SetFloat("RunState", 1.0f);
         }
         else
         {
@@ -180,12 +181,5 @@ public class player : MonoBehaviour
             Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
             rigid.velocity = new Vector2(h, v) * Speed;
         }
-    }
-    public float knockbackForce = 5f; // 넉백 힘의 세기
-    public void ApplyKnockback(Vector2 direction)
-    {
-        // 넉백을 주고자 하는 힘을 가함 (반대 방향으로)
-        rigid.AddForce(-direction * knockbackForce, ForceMode2D.Impulse);
-        Debug.Log("Knockback applied!");
     }
 }

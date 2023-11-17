@@ -6,6 +6,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
+    public EnemyData[] enemyDataArray;
+    [SerializeField]
     private MakeRandomMap randomMap;
     public GameObject[] prefabs;
     public GameObject enemyBox; // 에너미박스 오브젝트 설정
@@ -16,27 +18,30 @@ public class Spawner : MonoBehaviour
     public GameObject door;
     private int enemy = 0;
 
-    private void Awake()
-    {
-    }
 
     public void Return_RandomPosition(int index)
     {
-        enemy = UnityEngine.Random.Range(3, 10);
+        int enemyCount = UnityEngine.Random.Range(3, 10);
 
-        for (int i = 0; i < enemy; i++)
+        for (int i = 0; i < enemyCount; i++)
         {
-            Vector2 a = randomMap.GetRandomSpawnPosition(index);
-            //Debug.Log(a);
-            // 에너미박스 오브젝트의 자식으로 프리팹 추가
-            GameObject newEnemy = Instantiate(prefabs[0], a, Quaternion.identity);
-            newEnemy.transform.parent = enemyBox.transform; // 에너미박스의 자식으로 설정
+            Vector2 spawnPosition = randomMap.GetRandomSpawnPosition(index);
+
+            int randomIndex = UnityEngine.Random.Range(0, enemyDataArray.Length);
+            int randomIndex2 = UnityEngine.Random.Range(0, prefabs.Length);
+            EnemyData enemyData = enemyDataArray[randomIndex];
+
+            GameObject newEnemy = Instantiate(prefabs[randomIndex2], spawnPosition, Quaternion.identity);
+            EnemyStats enemyStats = newEnemy.GetComponent<EnemyStats>();
+
+            // 이동 속도 및 체력 값을 설정
+            if ( enemyData != null)
+            {
+                enemyStats.moveSpeed = enemyData.moveSpeed;
+                enemyStats.health = enemyData.health;
+            }
+
+            newEnemy.transform.parent = enemyBox.transform;
         }
-    }
-
-
-    private void Update()
-    {
-
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d3fd2f1fc26be492a97ff812e98df754
+guid: d24756e433435b249be5737019648d69
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -21,7 +21,7 @@ TextureImporter:
       213: 5223213533427645220
     second: Arm_L
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -38,12 +38,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -82,8 +81,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -273,14 +270,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Arm_L: 5223213533427645220
-      Arm_R: 2554473656886179314
-      Body: 2792606791867966216
-      Foot_L: 5053251350606442050
-      Foot_R: 1583482623376728253
       Head: 3923885903126733222
-  mipmapLimitGroupName: 
+      Foot_L: 5053251350606442050
+      Arm_R: 2554473656886179314
+      Foot_R: 1583482623376728253
+      Arm_L: 5223213533427645220
+      Body: 2792606791867966216
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 188715
+  packageName: 2D Pixel Unit Maker - SPUM
+  packageVersion: 1.6.4
+  assetPath: Assets/SPUM/SPUM_Sprites/BodySource/Species/0_Human/Human_1.png
+  uploadId: 624522
