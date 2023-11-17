@@ -19,9 +19,7 @@ public class EnemyController : MonoBehaviour
     Transform targetTransform = null;
     Vector3 endPosition;
     float currenAngle =0;
-    private bool isHurt = false;
-    private Vector3 knockbackDirection; // 넉백 방향
-    public float knockbackForce = 1f; // 넉백 힘
+
 
     private void Start()
     {
@@ -34,11 +32,7 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         Debug.DrawLine(Rigidbody2D.position, endPosition, Color.red);
-        if (isHurt)
-        {
-            // 넉백 방향으로 이동
-            Rigidbody2D.velocity = knockbackDirection * knockbackForce;
-        }
+
     }
     public IEnumerator WanderRoutine()
     {
@@ -68,23 +62,47 @@ public class EnemyController : MonoBehaviour
     public IEnumerator Move(Rigidbody2D rigidbodyToMove, float speed)
     {
         float remainingDistance = (transform.position - endPosition).sqrMagnitude;
+
         while (remainingDistance > float.Epsilon)
         {
             if (targetTransform != null)
             {
                 endPosition = targetTransform.position;
             }
+
             if (rigidbodyToMove != null)
             {
                 animator.SetBool("isWalking", true);
-                Vector3 newPosition = Vector3.MoveTowards(rigidbodyToMove.position, endPosition, speed * Time.deltaTime);
 
+                if (IsWallInFront())
+                {
+                    // 벽이 감지되면 이동을 중지하도록 변경
+                    animator.SetBool("isWalking", false);
+                    break;
+                }
+
+                Vector3 newPosition = Vector3.MoveTowards(rigidbodyToMove.position, endPosition, speed * Time.fixedDeltaTime);
                 Rigidbody2D.MovePosition(newPosition);
                 remainingDistance = (transform.position - endPosition).sqrMagnitude;
             }
-            yield return new WaitForFixedUpdate();
+
+            yield return null;
         }
+
         animator.SetBool("isWalking", false);
+    }
+    private bool IsWallInFront()
+    {
+        // 현재 위치에서 이동 방향으로 Ray를 쏴서 벽이 있는지 확인
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, endPosition - transform.position, currentSpeed * Time.fixedDeltaTime);
+
+        if (hit.collider != null && hit.collider.CompareTag("Wall"))
+        {
+            Debug.Log("Wall detected!");
+            return true;
+        }
+
+        return false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

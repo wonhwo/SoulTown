@@ -8,6 +8,7 @@ using System.Reflection;
 using UnityEditor.Hardware;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
@@ -42,9 +43,10 @@ public class player : MonoBehaviour
     private int HP = 100;
     //데미지
     private int damage;
+    string currentSceneName;
     void Awake()
     {
-
+        currentSceneName = SceneManager.GetActiveScene().name;
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
     }
@@ -67,7 +69,8 @@ public class player : MonoBehaviour
             Debug.Log(scanObject);
             gamemanager.Action(scanObject);
         }
-        enemyBoxcontroller.findEnemy();
+        if(currentSceneName.Equals("Map"))
+            enemyBoxcontroller.findEnemy();
 
     }
     bool isEnemy;

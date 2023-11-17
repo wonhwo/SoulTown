@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public Text talkText;
     public GameObject scanObject;
     public bool isAction =false;
+    [SerializeField]
+    public GameObject SkillUi;
 
     public void Action(GameObject scanObj)
     {
@@ -26,5 +28,7 @@ public class GameManager : MonoBehaviour
         talkPanel.SetActive(isAction);
 
     }
+    
+
 
 }

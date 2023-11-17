@@ -37,7 +37,6 @@ public class Weapon : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Debug.Log("test");
             animation.Play("batleSparks");
             damage = 10;
         }
