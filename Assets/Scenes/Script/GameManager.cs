@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,24 +12,23 @@ public class GameManager : MonoBehaviour
     public bool isAction =false;
     [SerializeField]
     public GameObject SkillUi;
-
     public void Action(GameObject scanObj)
     {
         if (isAction)
         {
             isAction = false;
-            
+
         }
         else
         {
-            isAction=true;
+            isAction = true;
             scanObject = scanObj;
             talkText.text = "이것의 이름은" + scanObject.name;
         }
         talkPanel.SetActive(isAction);
 
     }
-    
+
 
 
 }

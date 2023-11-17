@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SPUM_Prefabs : MonoBehaviour
@@ -8,6 +9,7 @@ public class SPUM_Prefabs : MonoBehaviour
     public bool EditChk;
     public string _code;
     public Animator _anim;
+
 
     public void PlayAnimation (int num)
     {

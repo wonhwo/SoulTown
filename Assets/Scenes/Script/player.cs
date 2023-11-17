@@ -3,10 +3,6 @@ using MoreMountains.TopDownEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Reflection;
-using UnityEditor.Hardware;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -15,26 +11,23 @@ public class player : MonoBehaviour
     [SerializeField]
     private DivideSpace divideSpace = new DivideSpace();
     [SerializeField]
-    RectangleSpace rectangleSpace;
-    [SerializeField]
-    public MakeRandomMap makeRandom;
-    [SerializeField]
     public Spawner Spawner;
     [SerializeField]
     public EnemyBoxcontroller enemyBoxcontroller;
     [SerializeField]
     private Weapon weapon;
+    [SerializeField]
+    private camara camara;
     public GameManager gamemanager;
     public Animator animation;
     public float Speed;
-    Vector3 dirVec;
     GameObject scanObject;
     Rigidbody2D rigid;
     float h;
     float v;
     bool isHorizonMove;
     bool isEventing = false;
-    private bool isHurt = false;
+    public bool isHurt = false;
     // 클래스 내에 배열 선언
     private List<int> extractedNumbers = new List<int>();
     //HP
@@ -46,22 +39,25 @@ public class player : MonoBehaviour
     string currentSceneName;
     void Awake()
     {
+        gamemanager = FindObjectOfType<GameManager>();
         currentSceneName = SceneManager.GetActiveScene().name;
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
+        
     }
     void Update()
     {
-        if (!isHurt)
-        {
-            h = gamemanager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
-            v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
-        }
         if (isHurt)
         {
             h = 0;
             v = 0;
         }
+        else
+        {
+            h = gamemanager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
+            v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        }
+
 
         Animations();
         if(Input.GetButtonDown("Jump") && scanObject!=null)
@@ -76,8 +72,7 @@ public class player : MonoBehaviour
     bool isEnemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isHurt) // 이미 피격 중인 경우, 더 이상 처리하지 않음
-            return;
+
         if (collision.gameObject.tag == "Object")
         {
             scanObject = collision.gameObject;
@@ -157,6 +152,7 @@ public class player : MonoBehaviour
     }
     public IEnumerator HurtDelay(float delay)
     {
+        camara.ShakeCamera();
         HP = HP - 20;
         HPbar.fillAmount =(float)HP / 100;
         animation.SetTrigger("Stun");
@@ -184,5 +180,12 @@ public class player : MonoBehaviour
             Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
             rigid.velocity = new Vector2(h, v) * Speed;
         }
+    }
+    public float knockbackForce = 5f; // 넉백 힘의 세기
+    public void ApplyKnockback(Vector2 direction)
+    {
+        // 넉백을 주고자 하는 힘을 가함 (반대 방향으로)
+        rigid.AddForce(-direction * knockbackForce, ForceMode2D.Impulse);
+        Debug.Log("Knockback applied!");
     }
 }

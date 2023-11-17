@@ -37,7 +37,7 @@ public class MenuDOtween : MonoBehaviour
     void LoadNextScene()
     {
         // "NextScene"은 실제로 사용할 씬의 이름으로 대체해야 합니다.
-        SceneManager.LoadScene("Town");
+        LoadingMnager.LoadScene("town");
     }
 
     void OptionButtonClicked()
