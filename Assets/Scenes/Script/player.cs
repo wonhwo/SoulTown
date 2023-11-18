@@ -43,7 +43,6 @@ public class player : MonoBehaviour
         currentSceneName = SceneManager.GetActiveScene().name;
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
-        
     }
     void Update()
     {
@@ -68,6 +67,11 @@ public class player : MonoBehaviour
         if(currentSceneName.Equals("Map"))
             enemyBoxcontroller.findEnemy();
 
+
+    }
+    public bool IsMovingRight()
+    {
+        return transform.localScale.x < 0;
     }
     bool isEnemy;
     private void OnTriggerEnter2D(Collider2D collision)

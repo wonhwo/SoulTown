@@ -8,9 +8,5 @@ public class EnemyStats : MonoBehaviour
     
         public float moveSpeed;
         public float health;
-    private void Awake()
-    {
-        Debug.Log(moveSpeed+ "," + health);
-    }
 
 }
