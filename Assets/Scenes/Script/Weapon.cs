@@ -7,17 +7,21 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField]
     private player player;
+
     private Animator animation;
+    [SerializeField]
     Animator parentAnimator;
     private int damage;
-    float delay = 0.55f;
+    float delay;
+    private WeaponSetting weaponSetting;
     void Awake()
     {
         animation = GetComponent<Animator>();
-        parentAnimator = transform.parent.GetComponent<Animator>();
+        weaponSetting = GetComponent<WeaponSetting>();
     }
     void Update()
     {
+        setdamage();
         weaponAnimation();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,14 +32,16 @@ public class Weapon : MonoBehaviour
             collision.gameObject.GetComponent<Enemy>().SetDamage(damage);
         }
     }
-
-
     int countS = 1;
     static bool isSlash = false;
+    Vector3 playerTransform;
     private void weaponAnimation()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && !isSlash)
         {
+            flipHorizontally();
+            //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 2, 0);
+            StartCoroutine(FollowPlayerWithDelay());
             StartCoroutine(AnimationDelay());
         }
         if (Input.GetKeyDown(KeyCode.X))
@@ -44,6 +50,38 @@ public class Weapon : MonoBehaviour
             damage = 10;
         }
     }
+    private IEnumerator FollowPlayerWithDelay()
+    {
+        
+        float elapsedTime = 0.0f;
+        float followDuration = 2.0f; // 따라가는 지속 시간
+
+        while (elapsedTime < followDuration)
+        {
+            
+            // 무기의 위치를 플레이어의 위치로 조금씩 따라가기
+            transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y + 2, 0), elapsedTime / followDuration);
+
+            // 경과 시간 업데이트
+            elapsedTime += Time.deltaTime; 
+        }
+        yield return null;
+    }
+    public bool flipHorizontally()
+    {
+        bool flip = false;
+        if (player.transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(-1,1,0);
+            flip = true;
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 0);
+        }
+        return flip;
+    }
+
     int countAttack = 1;
     private IEnumerator AnimationDelay()
     {
@@ -52,14 +90,13 @@ public class Weapon : MonoBehaviour
         {
             isSlash = true;
             sendAttack();
-            animation.Play(SelectfirstAttack());
+            animation.Play(weaponSetting.SelectfirstAttack());
             countAttack++;
         }
         else if(countAttack == 2) {
             isSlash = true;
             sendAttack();
-            animation.Play(Selectlastttack());
-            //animation.Play("KoalaSwordSlash3");
+            animation.Play(weaponSetting.Selectlastttack());
             countAttack = 1;
         }
         yield return new WaitForSeconds(delay);
@@ -67,84 +104,13 @@ public class Weapon : MonoBehaviour
         sendAttack();
     }
 
-    private string SelectfirstAttack()
-    {
-        string AttackName = "SquadSlash";
-        switch (AttackName)
-        {
-            case "KoalaSwordSlash1":
-                damage = 20;
-                AttackName = "KoalaSwordSlash1"; break;
-            case "SpeedSlash":
-                damage = 25;
-                AttackName = "SpeedSlash";break;
-            case "SpearSlash":
-                damage = 50;
-                transform.rotation = Quaternion.Euler(0, 0, player.IsMovingRight() ? -90 : 90);
-
-                Debug.Log("at1");
-                AttackName = "SpearSlash"; break;
-            case "SquadSlash":
-                damage = 30;
-                AttackName = "SquadSlash"; break;
-            case "SuperSlash":
-                AttackName = "SuperSlash"; break;
-            case "blood_slash":
-                AttackName = "blood_slash"; break;
-            case "clawsSlash":
-                AttackName = "clawsSlash"; break;
-            case "SlashV4":
-                AttackName = "SlashV4"; break;            
-            case "SlashV3":
-                AttackName = "SlashV3"; break;            
-            case "lineSlash":
-                AttackName = "lineSlash"; break;            
-            case "LightDarkSlash":
-                AttackName = "LightDarkSlash"; break;
-        }
-
-        return AttackName;
-    }
-    private string Selectlastttack()
-    {
-        string AttackName = "SquadSlash";
-        switch (AttackName)
-        {
-            case "KoalaSwordSlash3":
-                damage = 20;
-                transform.localScale = new Vector2(-0.5f, 0.5f); // X 스케일을 -1로 변경하여 반전
-                AttackName = "KoalaSwordSlash3"; break;
-            case "SpeedSlash":
-                damage = 25;
-                AttackName = "SpeedSlash"; break;
-            case "SpearSlash":
-                damage = 50;
-                transform.rotation = Quaternion.Euler(0, 0, 180);
-                Debug.Log("at2");
-                AttackName = "SpearSlash"; break;
-            case "SquadSlash":
-                damage = 30;
-                AttackName = "SquadSlash"; break;
-            case "SuperSlash":
-                AttackName = "SuperSlash"; break;
-            case "blood_slash":
-                AttackName = "blood_slash"; break;
-            case "clawsSlash":
-                AttackName = "clawsSlash"; break;
-            case "SlashV4":
-                AttackName = "SlashV4"; break;
-            case "SlashV3":
-                AttackName = "SlashV3"; break;
-            case "lineSlash":
-                AttackName = "lineSlash"; break;
-            case "LightDarkSlash":
-                AttackName = "LightDarkSlash"; break;
-        }
-
-        return AttackName;
-    }
     public bool sendAttack()
     {
         return isSlash;
+    }
+    public void setdamage()
+    {
+        damage=weaponSetting.damage;
+        delay = weaponSetting.delay;
     }
 }

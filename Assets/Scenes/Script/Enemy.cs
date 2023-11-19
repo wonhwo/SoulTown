@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         Hurt();
 
         // 0.1초 동안 대기
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.01f);
 
         // 데미지를 받을 수 있는 상태로 변경
         canTakeDamage = true;
