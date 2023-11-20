@@ -109,7 +109,6 @@ public class player : MonoBehaviour
                     lastCharacter = int.Parse(name.Substring(lastIndex + 1));
                 }
             }
-
             // lastCharacter가 유효한 값을 가지고 있을 때만 실행
             if (lastCharacter >= 0)
             {

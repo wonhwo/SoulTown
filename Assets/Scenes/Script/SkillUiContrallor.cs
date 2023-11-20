@@ -4,43 +4,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using MoreMountains.TopDownEngine;
+using UnityEngine.UI;
+using System;
+using System.Runtime.Remoting.Messaging;
+using UnityEngine.Events;
+using DG.Tweening.Core.Easing;
 
 public class SkillUiContrallor : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager gameManager;
+    Vector3 initialPosition;
+    [SerializeField]
+    private Button Skill1Button;
+    [SerializeField]
+    private Button Skill2Button;
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
-
+        initialPosition = transform.position;
+        Skill1Button.onClick.AddListener(MoveUpSkillUi);
+        Skill2Button.onClick.AddListener(MoveUpSkillUi);
     }
 
     // Update is called once per frame
-    void Update()
+
+  
+    public void MoveDownSkillUi()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            MoveSkillUi();
-        }
+        gameManager.TogglePause();
+            // 트윈 애니메이션 설정
+            transform.DOMoveY(initialPosition.y - 1000f, 3f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)
+                .SetEase(Ease.OutQuad) // 이동의 가속도 설정
+                .OnComplete(() =>
+                {
+                    // 애니메이션이 끝나면 호출될 콜백 함수
+                    Debug.Log("Tween animation completed!");
+                });
     }
-    bool isSkillUiActive = false;
-    private void MoveSkillUi()
+    private void MoveUpSkillUi()
     {
-        Vector3 initialPosition = transform.position;
-        isSkillUiActive = !isSkillUiActive; // 현재 상태의 반대로 설정
-        if (isSkillUiActive)
-        {      
-            // 트윈 애니메이션 설정
-            transform.DOMoveY(initialPosition.y - 1000f, 2f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)
-                .SetEase(Ease.OutQuad) // 이동의 가속도 설정
-                .OnComplete(() =>
-                {
-                    // 애니메이션이 끝나면 호출될 콜백 함수
-                    Debug.Log("Tween animation completed!");
-                });
-        }
-        else if (!isSkillUiActive)
+        gameManager.TogglePause();
         {
             // 트윈 애니메이션 설정
-            transform.DOMoveY(initialPosition.y + 1000f, 2f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)
+            transform.DOMoveY(initialPosition.y + 1000f, 3f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)
                 .SetEase(Ease.OutQuad) // 이동의 가속도 설정
                 .OnComplete(() =>
                 {
@@ -48,9 +55,5 @@ public class SkillUiContrallor : MonoBehaviour
                     Debug.Log("Tween animation completed!");
                 });
         }
-        // 초기 위치
-        
-
-
     }
 }

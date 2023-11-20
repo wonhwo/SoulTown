@@ -21,7 +21,7 @@ public class LevelUpMenuContrallor1 : MonoBehaviour
     {
         slectButton.onClick.AddListener(SendSkill);
     }
-    private void ImageSelect()
+    public void ImageSelect()
     {
         // 배열에서 랜덤하게 인덱스를 선택
         randomIndex = Random.Range(0, imgAraay.Length);
