@@ -28,7 +28,22 @@ public class SPUM_SpriteList : MonoBehaviour
     public List<string> _pantListString = new List<string>();
     public List<string> _weaponListString = new List<string>();
     public List<string> _backListString = new List<string>();
-    
+    public void ToggleTransparency()
+    {
+        foreach (var itemRenderer in _itemList)
+        {
+            if (itemRenderer != null)
+            {
+                Color spriteColor = itemRenderer.color;
+
+                // 현재 알파 값이 1.0이면 0.5로, 0.5이면 1.0으로 변경
+                spriteColor.a = (Mathf.Approximately(spriteColor.a, 1.0f)) ? 0.5f : 1.0f;
+
+                itemRenderer.color = spriteColor;
+            }
+        }
+    }
+
 
 
     public void Reset()

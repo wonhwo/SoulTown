@@ -28,11 +28,19 @@ public class SkillUiContrallor : MonoBehaviour
     }
 
     // Update is called once per frame
+    public void OnPause()
+    {
+        MoveDownSkillUi();
+    }
 
-  
+    public void OnResume()
+    {
+        MoveUpSkillUi();
+    }
+
     public void MoveDownSkillUi()
     {
-        gameManager.TogglePause();
+        
             // 트윈 애니메이션 설정
             transform.DOMoveY(initialPosition.y - 1000f, 3f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)
                 .SetEase(Ease.OutQuad) // 이동의 가속도 설정
@@ -44,7 +52,7 @@ public class SkillUiContrallor : MonoBehaviour
     }
     private void MoveUpSkillUi()
     {
-        gameManager.TogglePause();
+        
         {
             // 트윈 애니메이션 설정
             transform.DOMoveY(initialPosition.y + 1000f, 3f) // Y축으로 5의 거리를 2초 동안 이동 (아래로 이동)

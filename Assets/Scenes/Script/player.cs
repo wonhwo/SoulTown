@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class player : MonoBehaviour
 {
     [SerializeField]
+    private SPUM_SpriteList spriteList;
+    [SerializeField]
     private DivideSpace divideSpace = new DivideSpace();
     [SerializeField]
     public Spawner Spawner;
@@ -46,17 +48,8 @@ public class player : MonoBehaviour
     }
     void Update()
     {
-        if (isHurt)
-        {
-            h = 0;
-            v = 0;
-        }
-        else
-        {
             h = gamemanager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
             v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
-        }
-
 
         Animations();
         if(Input.GetButtonDown("Jump") && scanObject!=null)
@@ -155,15 +148,39 @@ public class player : MonoBehaviour
     }
     public IEnumerator HurtDelay(float delay)
     {
-        
+        isHurt = true;
+        spriteList.ToggleTransparency();
+        Physics2D.IgnoreLayerCollision(10, 6, true);
         HP = HP - 20;
-        HPbar.fillAmount =(float)HP / 100;
-        animation.SetTrigger("Stun");
+        HPbar.fillAmount = (float)HP / 100;
         camara.ShakeCamera();
-        Debug.Log("test");
-        isHurt = true; // 피격 상태로 설정
+        StartCoroutine(stopPlayer(0.5f));
         yield return new WaitForSeconds(delay);
-        isHurt = false; // 일정 시간 후 피격 상태 해제
+
+        isHurt = false;
+        Physics2D.IgnoreLayerCollision(10, 6, false);
+
+        spriteList.ToggleTransparency(); 
+    }
+    private bool isStopPlayerCooldown = false;
+
+    public IEnumerator stopPlayer(float delay)
+    {
+        if (!isStopPlayerCooldown)
+        {
+            isStopPlayerCooldown = true;
+
+            animation.SetTrigger("Stun");
+            // rigid.constraints를 사용하여 플레이어의 움직임을 제한
+            rigid.constraints = RigidbodyConstraints2D.FreezePosition;
+
+            yield return new WaitForSeconds(delay);
+
+            // 제한을 해제하여 다시 움직일 수 있도록 함
+            rigid.constraints = RigidbodyConstraints2D.None;
+            isStopPlayerCooldown = false;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
     private void Animations()
     {
@@ -181,8 +198,9 @@ public class player : MonoBehaviour
     {
         if (rigid != null)
         {
-            Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
-            rigid.velocity = new Vector2(h, v) * Speed;
+            Vector2 moveVec = new Vector2(h, v);
+            rigid.velocity = moveVec.normalized * Speed;
         }
+        
     }
 }

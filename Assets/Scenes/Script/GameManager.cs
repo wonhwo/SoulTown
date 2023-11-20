@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,20 +21,53 @@ public class GameManager : MonoBehaviour
     }
     public void TogglePause()
     {
-        // isPaused 플래그를 업데이트하고 Time.timeScale을 조절하여 게임을 일시정지하거나 재개합니다.
         isPaused = !isPaused;
 
         if (isPaused)
         {
-            //PauseAllExceptCanvas();
-            Time.timeScale = 0f; // 시간을 멈춤
-
+            // 일시정지 중일 때 원하는 오브젝트의 업데이트를 건너뛰도록 설정
+            PauseAllExceptSkillUi();
+            Time.timeScale = 0f;
         }
         else
         {
-            //ResumeAllExceptCanvas();
-            Time.timeScale = 1f; // 시간을 정상 속도로 복구
+            // 일시정지 해제 시 모든 오브젝트의 업데이트를 다시 활성화
+            ResumeAllExceptSkillUi();
+            Time.timeScale = 1f;
+        }
+    }
 
+    void PauseAllExceptSkillUi()
+    {
+        // 게임 오브젝트를 찾거나 원하는 방법으로 필터링하여 일시정지
+        foreach (var obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj != SkillUi)
+            {
+                // SkillUiContrallor 스크립트가 아닌 경우에만 일시정지
+                SkillUiContrallor skillUiController = obj.GetComponent<SkillUiContrallor>();
+                if (skillUiController != null)
+                {
+                    skillUiController.OnPause();
+                }
+            }
+        }
+    }
+
+    void ResumeAllExceptSkillUi()
+    {
+        // 게임 오브젝트를 찾거나 원하는 방법으로 필터링하여 일시정지 해제
+        foreach (var obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj != SkillUi)
+            {
+                // SkillUiContrallor 스크립트가 아닌 경우에만 일시정지 해제
+                SkillUiContrallor skillUiController = obj.GetComponent<SkillUiContrallor>();
+                if (skillUiController != null)
+                {
+                    skillUiController.OnResume();
+                }
+            }
         }
     }
     public void Action(GameObject scanObj)

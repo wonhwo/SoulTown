@@ -14,11 +14,11 @@ public class playerBody : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isHurt) return;
+       //if (isHurt) return;
         
         if (collision.CompareTag("Enemy"))
         {
-            StartCoroutine(player.HurtDelay(1.0f));
+            StartCoroutine(player.HurtDelay(1.2f));
         }
     }
 }
