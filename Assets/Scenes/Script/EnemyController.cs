@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
+    private RangedAttack rangedAttack;
+    [SerializeField]
     private EnemyStats enemyStats;
     private float pursuitSpeed;
     private float wanderSpeed;
@@ -19,6 +21,7 @@ public class EnemyController : MonoBehaviour
     Animator animator;
 
     Transform targetTransform = null;
+    Transform targetTransform1 = null;
     Vector3 endPosition;
     float currenAngle =0;
 
@@ -43,14 +46,24 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            ChooseNewEndPoint();
+            ChooseNewEndPointWithinRadius();
+            //ChooseNewEndPoint();
             if(moveCoroutine != null)
             {
                 StopCoroutine(moveCoroutine);
-            }
+            } 
             moveCoroutine = StartCoroutine(Move(Rigidbody2D, currentSpeed));
             yield return new WaitForSeconds(directionChangeInterval);
         }
+    }
+    void ChooseNewEndPointWithinRadius()
+    {
+        float circleRadius = circleCollider2D.radius;
+
+        currenAngle = Random.Range(0, 360);
+        float randomDistance = Random.Range(0, circleRadius);
+
+        endPosition = transform.position + Vector3FromAngle(currenAngle) * randomDistance;
     }
     void ChooseNewEndPoint()
     {
@@ -133,10 +146,17 @@ public class EnemyController : MonoBehaviour
             }
             moveCoroutine = StartCoroutine(Move(Rigidbody2D, currentSpeed));
         }
+        if (collision.gameObject.CompareTag("Player") && !follwPlayer)
+        {
+            animator.SetFloat("RunState", 0);
+            StopCoroutine(moveCoroutine);
+            targetTransform1 = collision.gameObject.transform;
+            rangedAttack.Attack(targetTransform1);
+        }
     }
-     void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")&&follwPlayer)
         {
             animator.SetFloat("RunState", 0);
             currentSpeed = wanderSpeed;

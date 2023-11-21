@@ -44,11 +44,6 @@ public class Weapon : MonoBehaviour
             StartCoroutine(FollowPlayerWithDelay());
             StartCoroutine(AnimationDelay());
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            animation.Play("batleSparks");
-            damage = 10;
-        }
     }
     private IEnumerator FollowPlayerWithDelay()
     {

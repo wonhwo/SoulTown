@@ -14,7 +14,7 @@ public class EXPContrallor : MonoBehaviour
     [SerializeField]
     private Image EXPbar;
     [SerializeField]
-    private GameManager gameManager;
+    SkillUiContrallor skillUiContrallor;
     private void Update()
     {
         levelUp();
@@ -30,12 +30,17 @@ public class EXPContrallor : MonoBehaviour
     {
         if (enemyName.Equals("slime(Clone)"))
         {
-            EXP += 50;
+            EXP += 10;
             enemyName = "";
         }
         if (enemyName.Equals("Goblin1(Clone)"))
         {
-            EXP += 50;
+            EXP += 20;
+            enemyName = "";
+        }
+        if (enemyName.Equals("Skeleton(Clone)"))
+        {
+            EXP += 30;
             enemyName = "";
         }
         Debug.Log(EXP);
@@ -46,7 +51,7 @@ public class EXPContrallor : MonoBehaviour
         {
             levelUpMenuContrallor.ImageSelect();
             levelUpMenuContrallor1.ImageSelect();
-            gameManager.TogglePause();
+            skillUiContrallor.MoveDownSkillUi();
             EXP = 0;
             EXPMax += 50;
         }

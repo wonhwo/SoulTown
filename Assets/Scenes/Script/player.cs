@@ -39,6 +39,8 @@ public class player : MonoBehaviour
     //데미지
     private int damage;
     string currentSceneName;
+    [SerializeField]
+    private GameObject shield;
     void Awake()
     {
         gamemanager = FindObjectOfType<GameManager>();
@@ -59,8 +61,26 @@ public class player : MonoBehaviour
         }
         if(currentSceneName.Equals("Map"))
             enemyBoxcontroller.findEnemy();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(ActivateShieldForDuration(1.0f));
+        }
+    }
+    private bool isShieldActive = false;
+    IEnumerator ActivateShieldForDuration(float duration)
+    {
+        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
 
+        if (!isShieldActive)
+        {
+            shield.SetActive(true);
+            isShieldActive = true;
 
+            yield return new WaitForSeconds(duration);
+
+            shield.SetActive(false);
+            isShieldActive = false;
+        }
     }
     public bool IsMovingRight()
     {

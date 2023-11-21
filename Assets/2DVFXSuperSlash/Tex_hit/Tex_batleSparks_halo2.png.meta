@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 guid: 63d25373c1e6d5f4fac73537d707cd75
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246419
+  packageName: 2D VFX slashes pack
+  packageVersion: 1.1
+  assetPath: Assets/2DVFXSuperSlash/Tex_hit/Tex_batleSparks_halo2.png
+  uploadId: 614695
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,9 +27,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -31,16 +41,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -54,10 +64,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -71,9 +86,222 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_0
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 810
+        width: 95
+        height: 96
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fc5b7d0212d8f340b9e61a22b84687f
+      internalID: 929184633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_1
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 797
+        width: 121
+        height: 122
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e043c8e71f0d2344bbbeb6297e18ec97
+      internalID: 315687367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_2
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 765
+        width: 184
+        height: 185
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cb6c3af0f0f8c149b8c95579ef1ba10
+      internalID: 422451126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 383
+        width: 268
+        height: 268
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c824e826b976a77459201cca878d4ab3
+      internalID: 1404252686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_4
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 353
+        width: 329
+        height: 329
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d1859ae051a3440a1b16e656cf1979
+      internalID: -1192530324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_5
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 343
+        width: 339
+        height: 340
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86fedb709f4dc5b4e8a8b7c46ddda7ca
+      internalID: -352150271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 326
+        height: 347
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b51795356bee4a4ab4cda3ca789efe8
+      internalID: 1320958726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_7
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 3
+        width: 310
+        height: 329
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45d86b8f9e6b88499e2f3682d3cddb3
+      internalID: 2071450548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tex_batleSparks_halo2_12
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 3
+        width: 309
+        height: 322
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95fd260f5f2f75c4dbdf32a7d60c68cf
+      internalID: 222510276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -84,16 +312,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Tex_batleSparks_halo2_0: 929184633
+      Tex_batleSparks_halo2_1: 315687367
+      Tex_batleSparks_halo2_10: 1952102676
+      Tex_batleSparks_halo2_11: 251828815
+      Tex_batleSparks_halo2_12: 222510276
+      Tex_batleSparks_halo2_2: 422451126
+      Tex_batleSparks_halo2_3: 1404252686
+      Tex_batleSparks_halo2_4: -1192530324
+      Tex_batleSparks_halo2_5: -352150271
+      Tex_batleSparks_halo2_6: 1320958726
+      Tex_batleSparks_halo2_7: 2071450548
+      Tex_batleSparks_halo2_8: 2140779027
+      Tex_batleSparks_halo2_9: -217676369
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 246419
-  packageName: 2D VFX slashes pack
-  packageVersion: 1.1
-  assetPath: Assets/2DVFXSuperSlash/Tex_hit/Tex_batleSparks_halo2.png
-  uploadId: 614695
