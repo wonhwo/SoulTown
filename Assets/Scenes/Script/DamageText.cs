@@ -3,32 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class DamageText : MonoBehaviour
 {
-    public float moveSpeed; //텍스트 이동속도
-    public float alphaSpeed;//투명도 변환속도
-    public float destrotTime;
-    TextMeshPro text;
-    Color alpha;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //text = GetComponent<TextMeshPro>();
-        //alpha = text.color;
-        StartCoroutine(DestroyTextWithDelay(destrotTime));
-    }
+    public float moveSpeed = 1.0f;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));
-        //alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed);
-        //text.color = alpha;
+        //transform.position += Vector3.up * moveSpeed * Time.deltaTime;
     }
-    private IEnumerator DestroyTextWithDelay(float delay)
+    public void DestroyEvent()
     {
-        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 }

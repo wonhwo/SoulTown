@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class player : MonoBehaviour
 {
@@ -59,8 +60,9 @@ public class player : MonoBehaviour
             Debug.Log(scanObject);
             gamemanager.Action(scanObject);
         }
-        if(currentSceneName.Equals("Map"))
-            enemyBoxcontroller.findEnemy();
+
+        //if(currentSceneName.Equals("Dungeon"))
+            //enemyBoxcontroller.findEnemy();
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(ActivateShieldForDuration(1.0f));
@@ -157,7 +159,7 @@ public class player : MonoBehaviour
         Debug.Log(lastCharacter+","+isEnemy);
         if (isEnemy)
         {
-            Spawner.Return_RandomPosition(lastCharacter); // 몬스터 소환
+            StartCoroutine(Spawner.SpawnEnemiesWithDelay(lastCharacter)); // 몬스터 소환
 
         }
         else

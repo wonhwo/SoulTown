@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField]
-    public EnemyData[] enemyDataArray;
+
     [SerializeField]
     private MakeRandomMap randomMap;
     public GameObject[] prefabs;
@@ -18,30 +18,28 @@ public class Spawner : MonoBehaviour
     public GameObject door;
     private int enemy = 0;
 
+     int isstart=0;
 
-    public void Return_RandomPosition(int index)
+    public IEnumerator SpawnEnemiesWithDelay(int index)
     {
-        int enemyCount = UnityEngine.Random.Range(3, 10);
-
-        for (int i = 0; i < enemyCount; i++)
+        for (int spawnCount = 0; spawnCount < 3; spawnCount++)
         {
-            Vector2 spawnPosition = randomMap.GetRandomSpawnPosition(index);
+            int enemyCount = UnityEngine.Random.Range(3, 10);
 
-            int randomIndex = UnityEngine.Random.Range(0, enemyDataArray.Length);
-            int randomIndex2 = UnityEngine.Random.Range(0, prefabs.Length);
-            EnemyData enemyData = enemyDataArray[randomIndex];
-
-            GameObject newEnemy = Instantiate(prefabs[randomIndex2], spawnPosition, Quaternion.identity);
-            EnemyStats enemyStats = newEnemy.GetComponent<EnemyStats>();
-
-            // 이동 속도 및 체력 값을 설정
-            if ( enemyData != null)
+            for (int i = 0; i < enemyCount; i++)
             {
-                enemyStats.moveSpeed = enemyData.moveSpeed;
-                enemyStats.health = enemyData.health;
-            }
+                Vector2 spawnPosition = randomMap.GetRandomSpawnPosition(index);
 
-            newEnemy.transform.parent = enemyBox.transform;
+                int randomIndex = UnityEngine.Random.Range(0, prefabs.Length);
+
+                GameObject newEnemy = Instantiate(prefabs[randomIndex], spawnPosition, Quaternion.identity);
+
+                newEnemy.transform.parent = enemyBox.transform;
+                if(isstart>0)
+                    yield return new WaitForSeconds(5.0f);
+            }
+            isstart++;
         }
+        isstart = 0;
     }
 }

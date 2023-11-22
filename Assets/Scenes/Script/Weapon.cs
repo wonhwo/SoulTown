@@ -7,7 +7,8 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField]
     private player player;
-
+    [SerializeField]
+    DamageTextController damageTextController;
     private Animator animation;
     [SerializeField]
     Animator parentAnimator;
@@ -28,6 +29,8 @@ public class Weapon : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            Vector3 pos = Camera.main.WorldToScreenPoint(collision.transform.position);
+            DamageTextController.Instance.CreateDamageText(pos, damage);
             // 충돌한 객체에게 변수 전달
             collision.gameObject.GetComponent<Enemy>().SetDamage(damage);
         }

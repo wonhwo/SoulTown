@@ -27,10 +27,6 @@ public class MakeRandomMap : MonoBehaviour
     private SpreadTilemap spreadTilemap;
     //플레이어
     [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    private GameObject entrance;
-    [SerializeField]
     private Tilemap tilemap;
     [SerializeField]
     private TileBase tile;
@@ -79,56 +75,7 @@ public class MakeRandomMap : MonoBehaviour
         //spreadTilemap.SpreadTrrigerTilemap();
         CreateAndPositionRectangle();
         
-
-
-        //player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        //entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
     }
-
-    //HashSet<Vector2Int> room;
-    /*public List<List<Vector2Int>> CalculateRoomArea()
-    {
-        List<List<Vector2Int>> rooms = new List<List<Vector2Int>>(); // 모든 방의 좌표 목록을 저장하는 리스트
-
-        for (int i = 0; i < a.Count; i++)
-        {
-            HashSet<Vector2Int> roomArea = new HashSet<Vector2Int>(); // 현재 방의 좌표 목록을 저장하는 HashSet
-            Vector2 roomCenter = b[i];
-            Vector2 roomSize = a[i];
-
-            // 방의 왼쪽 위 모서리 좌표 계산
-            Vector2 roomTopLeft = roomCenter - new Vector2(roomSize.x / 2, roomSize.y / 2);
-
-            // 방의 넓이 좌표 추가
-            for (int x = 0; x < roomSize.x; x++)
-            {
-                for (int y = 0; y < roomSize.y; y++)
-                {
-                    roomArea.Add(new Vector2Int((int)(roomTopLeft.x + x), (int)(roomTopLeft.y + y)));
-                }
-            }
-
-            roomSize.x += 1;
-
-            // 오른쪽에 추가된 한 칸의 좌표 추가
-            for (int y = 0; y < roomSize.y; y++)
-            {
-                roomArea.Add(new Vector2Int((int)(roomTopLeft.x + roomSize.x - 1), (int)(roomTopLeft.y + y)));
-            }
-
-            // 방의 좌표를 rooms 리스트에 추가
-            
-
-            roomArea.ExceptWith(wall);
-            roomArea.ExceptWith(corridor);
-            rooms.Add(roomArea.ToList());
-
-        }
-
-        // rooms 리스트에 각 방의 좌표가 저장되어 있음
-
-        return rooms;
-    }*/
     private void findmapping()
     {
         List<List<Vector2Int>> multiDimensionalList = new List<List<Vector2Int>>();

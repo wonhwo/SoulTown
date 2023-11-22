@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
+        
         Debug.DrawLine(Rigidbody2D.position, endPosition, Color.red);
 
     }
@@ -102,14 +104,16 @@ public class EnemyController : MonoBehaviour
                 {
                     transform.localScale = new Vector3(1, 1, 1); // 좌측 방향
                 }
-                animator.SetFloat("RunState", 0.5f);
 
-                if (IsWallInFront())
+                if(!isfinding)
+                    animator.SetFloat("RunState", 0.5f);
+
+                /*if (IsWallInFront())
                 {
                     // 벽이 감지되면 이동을 중지하도록 변경
                     animator.SetFloat("RunState", 0.0f);
                     break;
-                }
+                }*/
 
                 Vector3 newPosition = Vector3.MoveTowards(rigidbodyToMove.position, endPosition, speed * Time.fixedDeltaTime);
                 Rigidbody2D.MovePosition(newPosition);
@@ -133,7 +137,6 @@ public class EnemyController : MonoBehaviour
 
         return false;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && follwPlayer)
@@ -149,13 +152,51 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !follwPlayer)
         {
             animator.SetFloat("RunState", 0);
-            StopCoroutine(moveCoroutine);
-            targetTransform1 = collision.gameObject.transform;
-            rangedAttack.Attack(targetTransform1);
+
+            isfinding = true;
+            currentSpeed = pursuitSpeed;
+            targetTransform = collision.gameObject.transform;
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            moveCoroutine = StartCoroutine(Move(Rigidbody2D, currentSpeed));
+
+            if (!isRepeatedAttackCoroutineRunning)
+            {
+                StartCoroutine(RepeatedAttackCoroutine(collision));
+            }
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !follwPlayer)
+        {
+            Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+            animator.SetFloat("RunState", 0);
+        }
+            
+    }
+    private bool isfinding = false;
+    private bool isRepeatedAttackCoroutineRunning = false;
+    private IEnumerator RepeatedAttackCoroutine(Collider2D collision)
+    {
+        isRepeatedAttackCoroutineRunning = true;
+        while (isfinding)
+        {
+            targetTransform1 = collision.gameObject.transform;
+
+            rangedAttack.Attack(targetTransform1);
+
+            yield return new WaitForSeconds(1.5f);
+        }
+        isRepeatedAttackCoroutineRunning = false;
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
+        Rigidbody2D.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+        isfinding = false;
         if (collision.gameObject.CompareTag("Player")&&follwPlayer)
         {
             animator.SetFloat("RunState", 0);
@@ -165,6 +206,7 @@ public class EnemyController : MonoBehaviour
                 StopCoroutine(moveCoroutine);
             }
             targetTransform = null;
+            
         }
     }
     private void OnDrawGizmos()
