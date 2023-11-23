@@ -18,15 +18,17 @@ public class RangedAttack : MonoBehaviour
             Debug.LogError("Projectile Prefab is not set!");
         }
     }
-    public void Attack(Transform tartgetTransform)
+    public void Attack(Transform targetTransform)
     {
-        
         // 발사체를 생성하고 플레이어 방향으로 발사
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Vector3 directionToPlayer = (tartgetTransform.position - transform.position).normalized;
+
+        // 플레이어 방향으로 발사되지만 추적은 하지 않음
+        Vector3 directionToPlayer = (targetTransform.position - transform.position).normalized;
+        projectile.GetComponent<Rigidbody2D>().velocity = directionToPlayer * projectileSpeed;
+
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 1);
-        projectile.GetComponent<Rigidbody2D>().velocity = directionToPlayer * projectileSpeed;
 
         // 발사 이후 로직
         canAttack = false;

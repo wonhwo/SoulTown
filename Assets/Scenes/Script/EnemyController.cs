@@ -151,6 +151,14 @@ public class EnemyController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Player") && !follwPlayer)
         {
+
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !follwPlayer)
+        {
+            Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
             animator.SetFloat("RunState", 0);
 
             isfinding = true;
@@ -166,14 +174,6 @@ public class EnemyController : MonoBehaviour
             {
                 StartCoroutine(RepeatedAttackCoroutine(collision));
             }
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !follwPlayer)
-        {
-            Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
-            animator.SetFloat("RunState", 0);
         }
             
     }
