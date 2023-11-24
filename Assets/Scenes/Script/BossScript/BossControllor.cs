@@ -11,10 +11,16 @@ public class BossController : MonoBehaviour
     [SerializeField]
     private Animator Attackanimator;
     private Rigidbody2D rb;
+    private Transform firstTransform;
     private void Start()
     {
+        firstTransform = transform;
         animator = GetComponent<Animator>();
         animator.SetFloat("RunState", 0);
+    }
+    public Transform sendTransform()
+    {
+        return firstTransform;
     }
     private void Update()
     {
