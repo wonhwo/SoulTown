@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 guid: a256cd167ce938f43ae469093497856a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246419
+  packageName: 2D VFX slashes pack
+  packageVersion: 1.1
+  assetPath: Assets/2DVFXSuperSlash/Tex_hit/tex_sparks_hit_base2.png
+  uploadId: 614695
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,9 +27,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -31,16 +41,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -54,10 +64,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -71,9 +86,201 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_0
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 2221
+        width: 615
+        height: 555
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed137aef05d42a40b1052957effc0ce
+      internalID: -1373453296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_1
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 2158
+        width: 681
+        height: 653
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5ef3f54480de9f4f9a37a304c51e3e2
+      internalID: 1081927584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_2
+      rect:
+        serializedVersion: 2
+        x: 2153
+        y: 2108
+        width: 720
+        height: 767
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7887950c8ab289f43911b176e330489e
+      internalID: -1326034102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_3
+      rect:
+        serializedVersion: 2
+        x: 2714
+        y: 2165
+        width: 164
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cafd8783846b9c745b8eb817b637f259
+      internalID: -457366922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_4
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 1100
+        width: 730
+        height: 779
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 785817162cbce694f8dcb701445494d5
+      internalID: 1775249670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_5
+      rect:
+        serializedVersion: 2
+        x: 1192
+        y: 1096
+        width: 686
+        height: 783
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbb08990a48db3441a96db957cf21c63
+      internalID: 1719956644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_6
+      rect:
+        serializedVersion: 2
+        x: 2129
+        y: 1088
+        width: 776
+        height: 815
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 596766b8e460d884c875a6ffb67155e1
+      internalID: -1538501192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_sparks_hit_base2_14
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 1151
+        width: 123
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784323574fa751b4b8f7eb265b36471e
+      internalID: -1782361219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -84,16 +291,38 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      tex_sparks_hit_base2_0: -1373453296
+      tex_sparks_hit_base2_1: 1081927584
+      tex_sparks_hit_base2_10: -1399008459
+      tex_sparks_hit_base2_11: 1122417811
+      tex_sparks_hit_base2_12: -2126968553
+      tex_sparks_hit_base2_13: 1335759516
+      tex_sparks_hit_base2_14: -1782361219
+      tex_sparks_hit_base2_15: -1069016731
+      tex_sparks_hit_base2_16: -1563782683
+      tex_sparks_hit_base2_17: 732609521
+      tex_sparks_hit_base2_18: 891918010
+      tex_sparks_hit_base2_19: -1772292148
+      tex_sparks_hit_base2_2: -1326034102
+      tex_sparks_hit_base2_20: -1821537218
+      tex_sparks_hit_base2_21: -1731433385
+      tex_sparks_hit_base2_22: -408048785
+      tex_sparks_hit_base2_23: -1287547573
+      tex_sparks_hit_base2_24: 1785847284
+      tex_sparks_hit_base2_25: -405402759
+      tex_sparks_hit_base2_26: -2081609817
+      tex_sparks_hit_base2_27: 780370633
+      tex_sparks_hit_base2_28: 946893308
+      tex_sparks_hit_base2_3: -457366922
+      tex_sparks_hit_base2_4: 1775249670
+      tex_sparks_hit_base2_5: 1719956644
+      tex_sparks_hit_base2_6: -1538501192
+      tex_sparks_hit_base2_7: 267745164
+      tex_sparks_hit_base2_8: -751378742
+      tex_sparks_hit_base2_9: 331146864
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 246419
-  packageName: 2D VFX slashes pack
-  packageVersion: 1.1
-  assetPath: Assets/2DVFXSuperSlash/Tex_hit/tex_sparks_hit_base2.png
-  uploadId: 614695

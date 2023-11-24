@@ -49,6 +49,7 @@ public class RotateEnergy : MonoBehaviour
         }
         if (collision.CompareTag("Pattern"))
         {
+            gameObject.tag = "barrierBraek";
             isTriggerOn = true;
             // 천천히 보스 위치로 이동
             StartCoroutine(MoveToBossPosition(bossController.sendTransform().position, 2f));

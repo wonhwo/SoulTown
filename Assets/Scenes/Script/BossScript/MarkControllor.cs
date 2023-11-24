@@ -26,25 +26,21 @@ public class MarkControllor : MonoBehaviour
             if (markCount == 1)
             {
                 Pattern1.SetActive(true);
-                Debug.Log("1"+markCount);
                 markCount++;
             }
             else if (markCount == 2)
             {
                 Pattern2.SetActive(true);
-                Debug.Log("2" + markCount);
                 markCount++;
             }
             else if (markCount == 3)
             {
                 Pattern3.SetActive(true);
-                Debug.Log("3" + markCount);
                 markCount++;
             }
             else if (markCount == 4)
             {
                 Pattern4.SetActive(true);
-                Debug.Log("4" + markCount);
                 markCount = 1;
             }
             yield return new WaitForSeconds(5.0f);

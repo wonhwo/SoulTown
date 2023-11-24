@@ -71,7 +71,6 @@ public class WeaponSetting : MonoBehaviour
             case "LightDarkSlash":
                 AttackName = "LightDarkSlash"; break;
         }
-        Debug.Log("at1");
         return AttackName;
     }
     public string Selectlastttack()
@@ -124,7 +123,6 @@ public class WeaponSetting : MonoBehaviour
             case "LightDarkSlash":
                 AttackName2 = "LightDarkSlash"; break;
         }
-        Debug.Log("at2");
         return AttackName2;
     }
     float contrallX;
