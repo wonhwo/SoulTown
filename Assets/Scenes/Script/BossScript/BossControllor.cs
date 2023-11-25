@@ -12,6 +12,8 @@ public class BossController : MonoBehaviour
     private Animator Attackanimator;
     private Rigidbody2D rb;
     private Transform firstTransform;
+    [SerializeField]
+    private GameObject BossAttack;
     private void Start()
     {
         firstTransform = transform;
@@ -75,6 +77,7 @@ public class BossController : MonoBehaviour
     {
         Debug.Log("a1");
         StopMoving();
+        BossAttack.tag = "BossAttack1";
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 0);
         yield return new WaitForSeconds(1.5f);
@@ -87,6 +90,7 @@ public class BossController : MonoBehaviour
     {
         Debug.Log("a2");
         StopMoving();
+        BossAttack.tag = "BossAttack2";
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 0.5f);
         yield return new WaitForSeconds(0.5f);
@@ -133,4 +137,5 @@ public class BossController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1); // ÁÂÃø ¹æÇâ
         }
     }
+
 }

@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     private Animator animation;
     [SerializeField]
     Animator parentAnimator;
-    private int damage;
+    private static int damage;
     float delay;
     private WeaponSetting weaponSetting;
     void Awake()
@@ -33,6 +33,13 @@ public class Weapon : MonoBehaviour
             DamageTextController.Instance.CreateDamageText(pos, damage);
             // 충돌한 객체에게 변수 전달
             collision.gameObject.GetComponent<Enemy>().SetDamage(damage);
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            Vector3 pos = Camera.main.WorldToScreenPoint(collision.transform.position);
+            DamageTextController.Instance.CreateDamageText(pos, damage);
+            // 충돌한 객체에게 변수 전달
+            collision.gameObject.GetComponent<BossBody>().SetDamage(damage);
         }
     }
     int countS = 1;

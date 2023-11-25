@@ -9,27 +9,31 @@ public class FileballCantrollor : MonoBehaviour
     {
         rigidbody2 = GetComponent<Rigidbody2D>();
         
+
+    }
+    private void Awake()
+    {
+        
     }
     private void Update()
     {
         flipObject();
+
     }
+
     private void flipObject()
     {
+        if (rigidbody2 != null)
         {
-            // 좌우 이동 감지
-            float horizontalInput = Input.GetAxis("Horizontal");
-
-            Vector2 movement = new Vector2(horizontalInput, 0f);
-
-            // 좌우 이동에 따라 스케일 조절
-            if (movement.x > 0) // 오른쪽으로 이동
+            // 오른쪽으로 이동 중
+            if (rigidbody2.velocity.x > 0)
             {
-                transform.localScale = new Vector3(1, 1, 1); // 양수 값으로 스케일 조절
+                transform.localScale = new Vector3(1, 1, 1);
             }
-            else if (movement.x < 0) // 왼쪽으로 이동
+            // 왼쪽으로 이동 중
+            else if (rigidbody2.velocity.x < 0)
             {
-                transform.localScale = new Vector3(-1, 1, 1); // 음수 값으로 스케일 조절
+                transform.localScale = new Vector3(-1, 1, 1);
             }
         }
     }

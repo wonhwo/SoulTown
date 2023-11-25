@@ -43,6 +43,11 @@ public class EXPContrallor : MonoBehaviour
             EXP += 30;
             enemyName = "";
         }
+        if (enemyName.Equals("MageEnemy1(Clone)"))
+        {
+            EXP += 30;
+            enemyName = "";
+        }
         Debug.Log(EXP);
     }
     private void levelUp()

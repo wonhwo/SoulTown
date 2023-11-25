@@ -168,12 +168,12 @@ public class player : MonoBehaviour
             isEnemy = true;
         }
     }
-    public IEnumerator HurtDelay(float delay)
+    public IEnumerator HurtDelay(float delay,int damage)
     {
         isHurt = true;
         spriteList.ToggleTransparency();
         Physics2D.IgnoreLayerCollision(10, 6, true);
-        HP = HP - 20;
+        HP = HP - damage;
         HPbar.fillAmount = (float)HP / 100;
         camara.ShakeCamera();
         StartCoroutine(stopPlayer(0.5f));
@@ -224,5 +224,16 @@ public class player : MonoBehaviour
             rigid.velocity = moveVec.normalized * Speed;
         }
         
+    }
+    public IEnumerator LowerSpeedForDuration()
+    {
+        // 스피드를 낮추는 로직
+        Speed = 5.0f;
+
+        // 일정 시간 기다림
+        yield return new WaitForSeconds(3.0f);
+
+        // 원래 스피드로 복구
+        Speed = 8.0f;
     }
 }
