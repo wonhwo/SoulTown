@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnerhyGenerator : MonoBehaviour
 {
+    [SerializeField]
+    private FinalAttack finalAttack;
     public GameObject prefabToSpawn; // 소환할 프리팹
     public GameObject[] spawners; // 스포너들의 배열
     public GameObject[] LightCount;
@@ -12,7 +14,7 @@ public class EnerhyGenerator : MonoBehaviour
     bool monsterCount3 = false;
     bool monsterCount4 = false;
     private float timer = 0f;
-    public float interval = 10f; // 10초 간격으로 변경
+    public float interval = 5; // 10초 간격으로 변경
 
     private int currentActiveLightIndex = 0; // 현재 활성화된 라이트의 인덱스
 

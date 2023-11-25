@@ -6,14 +6,13 @@ public class RotateEnergy : MonoBehaviour
 {
     private GameObject player;
     public Transform playerTransform; // 플레이어의 Transform을 저장하기 위한 변수
-    public float moveSpeed = 2f; // 이동 속도 (초당 이동 거리)
+    public float moveSpeed = 3f; // 이동 속도 (초당 이동 거리)
     public float rotationSpeed = 30f; // 회전 속도
-    BossController bossController;
-
+    private GameObject Center;
     private void Start()
     {
+        Center = GameObject.Find("Center");
         player = GameObject.Find("UnitRoot");
-        bossController = FindObjectOfType<BossController>();
     }
 
     bool isTriggerOn = false;
@@ -52,7 +51,7 @@ public class RotateEnergy : MonoBehaviour
             gameObject.tag = "barrierBraek";
             isTriggerOn = true;
             // 천천히 보스 위치로 이동
-            StartCoroutine(MoveToBossPosition(bossController.sendTransform().position, 2f));
+            StartCoroutine(MoveToBossPosition(Center.transform.position, 2f));
         }
     }
 

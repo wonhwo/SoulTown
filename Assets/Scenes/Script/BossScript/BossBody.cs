@@ -8,11 +8,12 @@ public class BossBody : MonoBehaviour
     [SerializeField] private Image shieldBar;
     [SerializeField] private Image HpBar;
     [SerializeField] private GameObject barrier;
-    [SerializeField]
-    private BossController bossController;
+    [SerializeField] private BossController bossController;
+
+
 
     private static int bossHP = 0; // 시작할 때 체력을 0으로 초기화
-    private const int bossMaxHP = 2000;
+    private const int bossMaxHP = 60;
     private static int bossShield = 1; // 시작할 때 쉴드를 0으로 초기화
     private const int bossMaxShield = 100;
     private static int damage;
@@ -58,6 +59,18 @@ public class BossBody : MonoBehaviour
         // 변수 전달 받기
         damage = damageAmount;
         DecreaseHealth();
+        page2Start();
+    }
+    bool isPage=true;
+    private void page2Start()
+    {
+        if (bossHP<=bossMaxHP/2&& isPage)
+        {
+            barrier.SetActive(true);
+            bossShield = 100;
+            bossController.isCenterTure();
+            isPage = false;
+        }
     }
 
     private void statusController()

@@ -43,5 +43,9 @@ public class playerBody : MonoBehaviour
             StartCoroutine(player.LowerSpeedForDuration());
             Destroy(collision.gameObject);
         }
+        if (collision.CompareTag("FinalAttack"))
+        {
+            StartCoroutine(player.HurtDelay(1.2f, 100));
+        }
     }
 }
