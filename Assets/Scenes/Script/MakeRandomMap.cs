@@ -42,7 +42,7 @@ public class MakeRandomMap : MonoBehaviour
     //방의 x,y좌표
     List<Vector2> a = new List<Vector2>();
     //방의 중심 좌표
-    List<Vector2> b = new List<Vector2>();
+    public List<Vector2> b = new List<Vector2>();
     private void Start()
     {
         StartRandomMap();
@@ -74,7 +74,8 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadCorridorTilemap(corridor);
         //spreadTilemap.SpreadTrrigerTilemap();
         CreateAndPositionRectangle();
-        
+
+
     }
     private void findmapping()
     {
@@ -120,8 +121,8 @@ public class MakeRandomMap : MonoBehaviour
     public Vector2 GetRandomSpawnPosition(int index)
     {
         // 중심 좌표를 기준으로 가로 길이의 절반과 세로 길이의 절반 계산
-        float halfWidth = a[index].x / 2;
-        float halfHeight = a[index].y / 2;
+        float halfWidth = (a[index].x-1) / 2;
+        float halfHeight = (a[index].y-1) / 2;
 
         // 랜덤한 X 및 Y 좌표 생성
         float randomX = UnityEngine.Random.Range(-halfWidth, halfWidth);

@@ -11,10 +11,6 @@ public class FileballCantrollor : MonoBehaviour
         
 
     }
-    private void Awake()
-    {
-        
-    }
     private void Update()
     {
         flipObject();
@@ -35,6 +31,13 @@ public class FileballCantrollor : MonoBehaviour
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
 

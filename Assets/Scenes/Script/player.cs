@@ -159,7 +159,7 @@ public class player : MonoBehaviour
         Debug.Log(lastCharacter+","+isEnemy);
         if (isEnemy)
         {
-            StartCoroutine(Spawner.SpawnEnemiesWithDelay(lastCharacter)); // 몬스터 소환
+           Spawner.SpawnEnemiesWithDelay(lastCharacter); // 몬스터 소환
 
         }
         else
@@ -173,6 +173,7 @@ public class player : MonoBehaviour
         isHurt = true;
         spriteList.ToggleTransparency();
         Physics2D.IgnoreLayerCollision(10, 6, true);
+        //Physics2D.IgnoreLayerCollision(10, 26, true);
         HP = HP - damage;
         HPbar.fillAmount = (float)HP / 100;
         camara.ShakeCamera();
@@ -181,6 +182,7 @@ public class player : MonoBehaviour
 
         isHurt = false;
         Physics2D.IgnoreLayerCollision(10, 6, false);
+        //Physics2D.IgnoreLayerCollision(10, 26, false);
 
         spriteList.ToggleTransparency(); 
     }

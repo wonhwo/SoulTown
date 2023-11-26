@@ -13,7 +13,7 @@ public class LightTableController : MonoBehaviour
         if (activeChildCount == 4)
         {
             // 4가 되면 원하는 함수를 실행
-            YourFunctionToExecute();
+            Invoke("YourFunctionToExecute", 5f);
         }
     }
 

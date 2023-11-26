@@ -9,18 +9,21 @@ public class BossBody : MonoBehaviour
     [SerializeField] private Image HpBar;
     [SerializeField] private GameObject barrier;
     [SerializeField] private BossController bossController;
+    [SerializeField] private CircleCollider2D circleCollider;
+    private BoxCollider2D boxCollider;
 
 
 
     private static int bossHP = 0; // 시작할 때 체력을 0으로 초기화
-    private const int bossMaxHP = 60;
+    private const int bossMaxHP = 1000;
     private static int bossShield = 1; // 시작할 때 쉴드를 0으로 초기화
     private const int bossMaxShield = 100;
     private static int damage;
     private static int shiedDamage=100;
 
-    private void Start()
+    private void Awake()
     {
+        boxCollider=gameObject.GetComponent<BoxCollider2D>();
         // DOTween 초기화
         DOTween.Init();
 
@@ -40,8 +43,9 @@ public class BossBody : MonoBehaviour
 
         // 실행할 코드
         Debug.Log("Barrier Broken!");
-
+        circleCollider.isTrigger = true;
         bossController.StartMoving();
+        boxCollider.enabled = true;
         barrier.SetActive(false);
     }
     private void Update()
@@ -67,7 +71,10 @@ public class BossBody : MonoBehaviour
         if (bossHP<=bossMaxHP/2&& isPage)
         {
             barrier.SetActive(true);
-            bossShield = 100;
+            boxCollider.enabled = false;
+            circleCollider.isTrigger = false;
+            DOTween.To(() => bossShield, x => bossShield = x, bossMaxShield, 5f)
+                .OnUpdate(() => statusController()); // 쉴드를 업데이트
             bossController.isCenterTure();
             isPage = false;
         }

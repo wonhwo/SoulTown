@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -17,13 +18,17 @@ public class Spawner : MonoBehaviour
     private List<Vector2> bList;
     public GameObject door;
     private int enemy = 0;
-
-     int isstart=0;
-
-    public IEnumerator SpawnEnemiesWithDelay(int index)
+    private List<Vector2> b = new List<Vector2>();
+    private int count=0;
+    private int index;
+    public GameObject Portal;
+    private void Awake()
     {
-        for (int spawnCount = 0; spawnCount < 3; spawnCount++)
-        {
+        
+    }
+    public void SpawnEnemiesWithDelay(int index)
+    {
+        this.index = index;
             int enemyCount = UnityEngine.Random.Range(3, 10);
 
             for (int i = 0; i < enemyCount; i++)
@@ -35,11 +40,19 @@ public class Spawner : MonoBehaviour
                 GameObject newEnemy = Instantiate(prefabs[randomIndex], spawnPosition, Quaternion.identity);
 
                 newEnemy.transform.parent = enemyBox.transform;
-                if(isstart>0)
-                    yield return new WaitForSeconds(5.0f);
+
             }
-            isstart++;
+        getBoxPoint();
+    }
+    private void getBoxPoint()
+    {
+        this.b = randomMap.b;
+        count++;
+        if (count == b.Count && b != null)
+        {
+            GameObject spawnedPrefab = Instantiate(Portal, b[index], Quaternion.identity);
+            spawnedPrefab.SetActive(false);
+            count++;
         }
-        isstart = 0;
     }
 }

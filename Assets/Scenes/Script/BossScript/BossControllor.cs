@@ -13,21 +13,21 @@ public class BossController : MonoBehaviour
     [SerializeField]
     private Animator Attackanimator;
     private Rigidbody2D rb;
-    private Transform firstTransform;
     [SerializeField]
     private GameObject BossAttack;
     [SerializeField] private GameObject Center;
     [SerializeField] private GameObject batleSparksRange;
     [SerializeField] private GameObject BloodRange;
+    [SerializeField] private GameObject BossAttack3;
+    [SerializeField] private GameObject BossAttack3Range;
+    private Animator BossAttack3Anim;
+    private BossAttack3 bossAttackScript;
     private void Start()
     {
-        firstTransform = transform;
+        bossAttackScript=BossAttack3.GetComponent<BossAttack3>();
+        BossAttack3Anim = BossAttack3.GetComponent<Animator>();
         animator = GetComponent<Animator>();
         animator.SetFloat("RunState", 0);
-    }
-    public Transform sendTransform()
-    {
-        return firstTransform;
     }
     private void Update()
     {
@@ -40,17 +40,10 @@ public class BossController : MonoBehaviour
         {
             StartCoroutine(moveCenter());
         }
+        //Debug.Log()
     }
     private bool isPlayerInAttackRange = false;
     private bool isAttackCoroutineRunning = false;
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name.Equals("Center"))
-        {
-
-
-        }
-    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -63,8 +56,16 @@ public class BossController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        // 자식 콜리더인 경우 무시
+        if (collision.transform.IsChildOf(transform))
+        {
+            return;
+        }
+
+        // 부모 콜리더에서만 이벤트 처리
         if (collision.CompareTag("Player"))
         {
+            Debug.Log(collision.gameObject.name);
             isPlayerInAttackRange = false;
         }
     }
@@ -76,24 +77,43 @@ public class BossController : MonoBehaviour
 
         while (isPlayerInAttackRange)
         {
-            int selectAttack = Random.Range(0, 2);
+            int selectAttack =Random.Range(0, 3);
             if (isPlayerInAttackRange)
             {
                 if(selectAttack==0)
                     StartCoroutine(Attack1()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
                 if (selectAttack == 1)
                     StartCoroutine(Attack2()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
+                if (selectAttack == 2)
+                    StartCoroutine(Attack3()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
             }
+
+                
+            
             yield return new WaitForSeconds(3.0f); // 2초 동안 대기
+        }
+        if (!isPlayerInAttackRange)
+        {
+            StartMoving();
         }
 
         isAttackCoroutineRunning = false;
     }
-
     private IEnumerator Attack1()
     {
         Debug.Log("a1");
         StopMoving();
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        bool isFacingRight = direction.x > 0;
+        // 플립 설정
+        if (isFacingRight)
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // 우측 방향
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1); // 좌측 방향
+        }
         BossAttack.tag = "BossAttack1";
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 0);
@@ -101,14 +121,11 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         BloodRange.SetActive(false);
         Attackanimator.Play("boss_blood_slash1");
-        yield return new WaitForSeconds(1.5f);
-        if(!isPlayerInAttackRange)
-            StartMoving();
-
-
+        yield return new WaitForSeconds(2.0f);
     }
     private IEnumerator Attack2()
     {
+
         Debug.Log("a2");
         StopMoving();
         BossAttack.tag = "BossAttack2";
@@ -119,23 +136,38 @@ public class BossController : MonoBehaviour
         batleSparksRange.SetActive(false);
         Attackanimator.Play("batleSparks");
         yield return new WaitForSeconds(2.5f);
-
-        if (!isPlayerInAttackRange&&!isMoving)
-            StartMoving();
-
+    }
+    private IEnumerator Attack3()
+    {
+        Debug.Log("a3");
+        StopMoving();
+        BossAttack.tag = "BossAttack3";
+        animator.SetTrigger("Attack");
+        animator.SetFloat("NormalState", 0f);
+        BossAttack3Range.SetActive(true);
+        bossAttackScript.moveA3();
+        yield return new WaitForSeconds(0.35f);
+        BossAttack3Range.SetActive(false);
+        BossAttack3Anim.Play("Slash_baff");
+        yield return new WaitForSeconds(0.7f);
+        bossAttackScript.moveReturn();
     }
 
     // 이동 시작 함수
     public void StartMoving()
     {
-        isMoving = true;
+        if (!is2page) {isMoving = true; }
+        
     }
 
     // 이동 종료 함수
     public void StopMoving()
     {
+        if (!is2page)
+        {
         animator.SetFloat("RunState", 0);
         isMoving = false;
+        }
     }
 
     void MoveTowardsPlayer()

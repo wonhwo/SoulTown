@@ -30,11 +30,10 @@ public class playerBody : MonoBehaviour
         }
         if (collision.CompareTag("BossAttack3"))
         {
-            StartCoroutine(player.HurtDelay(1.2f, 65));
+            StartCoroutine(player.HurtDelay(1.2f, 20));
         }
         if (collision.CompareTag("Energy"))
         {
-            StartCoroutine(player.HurtDelay(1.2f, 20));
             Destroy(collision.gameObject);
         }
         if (collision.CompareTag("FireBall"))

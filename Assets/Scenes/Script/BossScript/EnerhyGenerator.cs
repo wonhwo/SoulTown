@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class EnerhyGenerator : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class EnerhyGenerator : MonoBehaviour
     bool monsterCount3 = false;
     bool monsterCount4 = false;
     private float timer = 0f;
-    public float interval = 5; // 10초 간격으로 변경
+    public float interval = 5; 
 
     private int currentActiveLightIndex = 0; // 현재 활성화된 라이트의 인덱스
 
@@ -22,6 +21,7 @@ public class EnerhyGenerator : MonoBehaviour
     {
         trueMonsterCount();
         SpanerChildCount();
+        
 
         if (monsterCount1 && monsterCount2 && monsterCount3 && monsterCount4)
         {
@@ -36,7 +36,6 @@ public class EnerhyGenerator : MonoBehaviour
             }
 
             SpawnPrefab(transform);
-            
         }
         else
         {

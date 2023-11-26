@@ -7,10 +7,12 @@ public class EnemyBoxcontroller : MonoBehaviour
     // 에너미 오브젝트를 참조하기 위한 배열 또는 리스트
     public Transform[] enemies;
     public Tilemap door; // Inspector에서 할당할 Tilemap
-
+    private GameObject movePortal;
     private void Update()
     {
         findEnemy();
+        if (movePortal == null)
+            movePortal = GameObject.Find("move1(Clone)");
     }
     public void findEnemy()
     {
@@ -23,6 +25,8 @@ public class EnemyBoxcontroller : MonoBehaviour
         else
         {
             door.gameObject.SetActive(false);
+            if(movePortal!=null)
+                movePortal.gameObject.SetActive(true);
         }
     }
 }
