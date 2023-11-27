@@ -29,9 +29,10 @@ public class BossController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetFloat("RunState", 0);
     }
+    private bool isMovingAllowed = true;
     private void Update()
     {
-        if (isMoving && player != null&&!is2page)
+        if (isMoving && player != null && !is2page && isMovingAllowed)
         {
             // 플레이어 방향으로 이동
             MoveTowardsPlayer();
@@ -77,22 +78,39 @@ public class BossController : MonoBehaviour
 
         while (isPlayerInAttackRange)
         {
-            int selectAttack =Random.Range(0, 3);
+            if (is2page ||!isMovingAllowed)
+            {
+
+                yield break;
+            }
+            int totalProbability = 100;
+            int randomValue = Random.Range(1, totalProbability + 1);
+
+            int selectAttack = randomValue <= 70 ? 0 : randomValue <= 90 ? 1 : 2;
+
             if (isPlayerInAttackRange)
             {
-                if(selectAttack==0)
-                    StartCoroutine(Attack1()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
-                if (selectAttack == 1)
-                    StartCoroutine(Attack2()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
-                if (selectAttack == 2)
-                    StartCoroutine(Attack3()); // 플레이어가 여전히 공격 범위 내에 있다면 어택 실행
+                switch (selectAttack)
+                {
+                    case 0:
+                        StartCoroutine(Attack3());
+                        
+                        break;
+                    case 1:
+                        StartCoroutine(Attack1());
+                        
+                        break;
+                    case 2:
+                        StartCoroutine(Attack2());
+                        break;
+                }
             }
 
-                
-            
-            yield return new WaitForSeconds(3.0f); // 2초 동안 대기
+
+
+            yield return new WaitForSeconds(2.0f); // 2초 동안 대기
         }
-        if (!isPlayerInAttackRange)
+        if (!isPlayerInAttackRange&&!is2page)
         {
             StartMoving();
         }
@@ -118,10 +136,10 @@ public class BossController : MonoBehaviour
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 0);
         BloodRange.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.1f);
         BloodRange.SetActive(false);
         Attackanimator.Play("boss_blood_slash1");
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
     }
     private IEnumerator Attack2()
     {
@@ -132,7 +150,7 @@ public class BossController : MonoBehaviour
         animator.SetTrigger("Attack");
         animator.SetFloat("NormalState", 0.5f);
         batleSparksRange.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.60f);
         batleSparksRange.SetActive(false);
         Attackanimator.Play("batleSparks");
         yield return new WaitForSeconds(2.5f);
@@ -146,17 +164,17 @@ public class BossController : MonoBehaviour
         animator.SetFloat("NormalState", 0f);
         BossAttack3Range.SetActive(true);
         bossAttackScript.moveA3();
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.42f);
         BossAttack3Range.SetActive(false);
         BossAttack3Anim.Play("Slash_baff");
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1.0f);
         bossAttackScript.moveReturn();
     }
 
     // 이동 시작 함수
     public void StartMoving()
     {
-        if (!is2page) {isMoving = true; }
+        if (!is2page&& isMovingAllowed) { isMoving = true; }
         
     }
 
@@ -194,7 +212,7 @@ public class BossController : MonoBehaviour
     }
     bool is2page=false;
     public IEnumerator moveCenter() {
-
+        isMovingAllowed = false; // 이동을 허용하지 않음
         animator.SetFloat("RunState", 0.5f);
         Vector3 direction = (Center.transform.position - transform.position).normalized;
 
@@ -214,14 +232,16 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(timeToReachTarget);
         is2page = false;
         StopMoving();
+        isMovingAllowed = true; // 이동을 다시 허용함
 
     }
     float distanceToTarget; float timeToReachTarget;
     public void isCenterTure()
     {
+        is2page = true;
         distanceToTarget = Vector3.Distance(transform.position, Center.transform.position);
         timeToReachTarget = distanceToTarget / moveSpeed;
-        is2page = true;
+
     }
 
 }

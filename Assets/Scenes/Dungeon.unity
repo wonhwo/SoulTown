@@ -587,10 +587,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomMap: {fileID: 412653022}
   prefabs:
-  - {fileID: 739810694253992677, guid: 2ea7b7ae3a0e9a24094e1947bcdb27cf, type: 3}
-  - {fileID: 6378372796329884674, guid: 1653d8bed7b12cb42b84217ebfc91752, type: 3}
   - {fileID: 8477828974350164502, guid: 6c875a744256cb9498e4dde8a8242199, type: 3}
+  - {fileID: 6378372796329884674, guid: 1653d8bed7b12cb42b84217ebfc91752, type: 3}
   - {fileID: 658269402770240527, guid: 2f339c85e32261b4d9a477ef35c56389, type: 3}
+  - {fileID: 739810694253992677, guid: 2ea7b7ae3a0e9a24094e1947bcdb27cf, type: 3}
   enemyBox: {fileID: 967313410}
   door: {fileID: 2030817756}
   Portal: {fileID: 5721576625904001642, guid: be6b5b690f4753c46a9cc6497aac16a8, type: 3}
@@ -653,8 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef1ce8030a552c46bbad0d258c97df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalWidth: 100
-  totalHeight: 100
+  totalWidth: 90
+  totalHeight: 90
   minWidth: 30
   minHeight: 30
   totalSpace: {fileID: 0}
@@ -1225,7 +1225,7 @@ Transform:
   m_GameObject: {fileID: 340807194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.2205925, y: -19.070553, z: 0.00962162}
+  m_LocalPosition: {x: -40.720592, y: -202.07054, z: 1.109622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21550,12 +21550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &435658415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1537174094588527685, guid: c87109ea742b37a48851558162ec73ed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2004602135763524683}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &442310852
 GameObject:
   m_ObjectHideFlags: 0
@@ -21867,8 +21861,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294901807
-  m_fontColor: {r: 0.18567753, g: 0, b: 1, a: 1}
+    rgba: 4282361856
+  m_fontColor: {r: 0, g: 0.6603774, b: 0.2468864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -22089,6 +22083,8 @@ GameObject:
   - component: {fileID: 524197976}
   - component: {fileID: 524197978}
   - component: {fileID: 524197977}
+  - component: {fileID: 524197979}
+  - component: {fileID: 524197980}
   m_Layer: 5
   m_Name: NextStage
   m_TagString: Untagged
@@ -22213,6 +22209,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524197975}
   m_CullTransparentMesh: 1
+--- !u!114 &524197979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524197975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de9eee49c2c6374d85a84d4b0c46b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInDuration: 1
+  fadeOutDuration: 1
+--- !u!225 &524197980
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524197975}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &567901456
 GameObject:
   m_ObjectHideFlags: 0
@@ -22442,13 +22464,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 607667991}
+  - component: {fileID: 607667992}
+  - component: {fileID: 607667993}
   m_Layer: 5
   m_Name: TextUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &607667991
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22470,6 +22494,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &607667992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607667990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572d9f4ded2287b43bd1b9433e8c1285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiObject: {fileID: 607667990}
+  fadeInDuration: 3
+  fadeOutDuration: 2
+--- !u!225 &607667993
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607667990}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &617803862
 GameObject:
   m_ObjectHideFlags: 0
@@ -22557,7 +22608,7 @@ Transform:
   m_GameObject: {fileID: 617803862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.2205925, y: -19.070553, z: 0.00962162}
+  m_LocalPosition: {x: -40.720592, y: -202.07054, z: 1.109622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23555,6 +23606,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 5743200110801309067, guid: 07000cdcb4db0f343938c497d11962d5,
     type: 3}
+--- !u!114 &666498776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7985107427935616771, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433381870274713720}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &701350608
 GameObject:
   m_ObjectHideFlags: 0
@@ -24186,8 +24249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81aaaeaa9af082c4681aa89109f16796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawner: {fileID: 109245958}
   enemies: []
   door: {fileID: 2030817759}
+  nextUI: {fileID: 524197979}
 --- !u!1 &969409076
 GameObject:
   m_ObjectHideFlags: 0
@@ -24366,10 +24431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d38648ededdf94daa5edfb4d99644a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 435658415}
-  Boss: {fileID: 343032283}
-  BossMap: {fileID: 221729605}
-  BossStatus: {fileID: 1699480565}
 --- !u!1 &980105361
 GameObject:
   m_ObjectHideFlags: 0
@@ -24541,6 +24602,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KoalaTeleporterOrange
       objectReference: {fileID: 0}
+    - target: {fileID: 1490758154976072, guid: 51f4065837bb0e2499d797db72b760db, type: 3}
+      propertyPath: m_TagString
+      value: Portal2
+      objectReference: {fileID: 0}
     - target: {fileID: 4574611886271380, guid: 51f4065837bb0e2499d797db72b760db, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.04
@@ -24591,6 +24656,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 969541813}
   m_SourcePrefab: {fileID: 100100000, guid: 51f4065837bb0e2499d797db72b760db, type: 3}
+--- !u!114 &1026113674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4241242807967564676, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433381870274713720}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1028310857
 GameObject:
   m_ObjectHideFlags: 0
@@ -30063,8 +30140,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -31652,6 +31729,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1413061279}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1576389299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2616582313327852578, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433381870274713720}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1605622814
 GameObject:
   m_ObjectHideFlags: 0
@@ -39192,7 +39281,7 @@ Tilemap:
       - {fileID: -878620161, guid: f6128e431e8fe3546b49eec853153cfc, type: 3}
       - {fileID: -1117927249, guid: f6128e431e8fe3546b49eec853153cfc, type: 3}
       - {fileID: -1906510403, guid: f6128e431e8fe3546b49eec853153cfc, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -39883,6 +39972,18 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &2054510758 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 652551223327377967, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433381870274713720}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2064566660
 GameObject:
   m_ObjectHideFlags: 0
@@ -40569,7 +40670,7 @@ PrefabInstance:
     - target: {fileID: 5484779147165026975, guid: c87109ea742b37a48851558162ec73ed,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5484779147165026975, guid: c87109ea742b37a48851558162ec73ed,
         type: 3}
@@ -40594,12 +40695,12 @@ PrefabInstance:
     - target: {fileID: 5484779147165026975, guid: c87109ea742b37a48851558162ec73ed,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5
+      value: -31.5
       objectReference: {fileID: 0}
     - target: {fileID: 5484779147165026975, guid: c87109ea742b37a48851558162ec73ed,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -9
+      value: -192
       objectReference: {fileID: 0}
     - target: {fileID: 5484779147165026975, guid: c87109ea742b37a48851558162ec73ed,
         type: 3}
@@ -40834,9 +40935,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3503220766017813539, guid: ac2f32fb039268b4382fdb0477f4cf7b,
         type: 3}
+      propertyPath: SkillName1UI1
+      value: 
+      objectReference: {fileID: 1026113674}
+    - target: {fileID: 3503220766017813539, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
       propertyPath: weaponSetting
       value: 
       objectReference: {fileID: 493262210}
+    - target: {fileID: 3503220766017813539, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: SkilldamageUI1
+      value: 
+      objectReference: {fileID: 666498776}
+    - target: {fileID: 4241242807967564676, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241242807967564676, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241242807967564676, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241242807967564676, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190335
+      objectReference: {fileID: 0}
     - target: {fileID: 4656299798146521910, guid: ac2f32fb039268b4382fdb0477f4cf7b,
         type: 3}
       propertyPath: SkillImage
@@ -40844,9 +40975,19 @@ PrefabInstance:
       objectReference: {fileID: 2433381870274713721}
     - target: {fileID: 4656299798146521910, guid: ac2f32fb039268b4382fdb0477f4cf7b,
         type: 3}
+      propertyPath: SkillName1UI2
+      value: 
+      objectReference: {fileID: 2054510758}
+    - target: {fileID: 4656299798146521910, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
       propertyPath: weaponSetting
       value: 
       objectReference: {fileID: 493262210}
+    - target: {fileID: 4656299798146521910, guid: ac2f32fb039268b4382fdb0477f4cf7b,
+        type: 3}
+      propertyPath: SkilldamageUI2
+      value: 
+      objectReference: {fileID: 1576389299}
     - target: {fileID: 5250544251390937804, guid: ac2f32fb039268b4382fdb0477f4cf7b,
         type: 3}
       propertyPath: m_Name
@@ -41007,6 +41148,11 @@ PrefabInstance:
       objectReference: {fileID: 962851638376607629}
     - target: {fileID: 6559046970398327835, guid: 38a28fa39dd18144db82019314a0fd4e,
         type: 3}
+      propertyPath: BossRoom
+      value: 
+      objectReference: {fileID: 221729605}
+    - target: {fileID: 6559046970398327835, guid: 38a28fa39dd18144db82019314a0fd4e,
+        type: 3}
       propertyPath: talkText
       value: 
       objectReference: {fileID: 6373788411295215988}
@@ -41015,6 +41161,16 @@ PrefabInstance:
       propertyPath: talkPanel
       value: 
       objectReference: {fileID: 4405363651644034358}
+    - target: {fileID: 6559046970398327835, guid: 38a28fa39dd18144db82019314a0fd4e,
+        type: 3}
+      propertyPath: Level1Boss
+      value: 
+      objectReference: {fileID: 343032283}
+    - target: {fileID: 6559046970398327835, guid: 38a28fa39dd18144db82019314a0fd4e,
+        type: 3}
+      propertyPath: bossStatus
+      value: 
+      objectReference: {fileID: 1699480565}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

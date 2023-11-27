@@ -19,7 +19,7 @@ public class camara : MonoBehaviour
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
         // Shake 효과 적용
-        ShakeCamera();
+        StartCoroutine(ResetCameraShake());
     }
 
     public void ShakeCamera()

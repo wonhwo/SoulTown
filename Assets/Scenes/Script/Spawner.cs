@@ -7,51 +7,55 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-
     [SerializeField]
     private MakeRandomMap randomMap;
     public GameObject[] prefabs;
     public GameObject enemyBox; // 에너미박스 오브젝트 설정
-    private GameObject select = null;
     private Tuple<List<Vector2>, List<Vector2>> spawners;
-    private List<Vector2> aList;
-    private List<Vector2> bList;
     public GameObject door;
-    private int enemy = 0;
     private List<Vector2> b = new List<Vector2>();
-    private int count=0;
+    private int count = 0;
     private int index;
     public GameObject Portal;
-    private void Awake()
-    {
-        
-    }
-    public void SpawnEnemiesWithDelay(int index)
+
+    public IEnumerator SpawnEnemiesWithDelay(int index)
     {
         this.index = index;
-            int enemyCount = UnityEngine.Random.Range(3, 10);
+        int enemyCount = 10 + (5 * count); // 10부터 5씩 증가
 
-            for (int i = 0; i < enemyCount; i++)
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Vector2 spawnPosition = randomMap.GetRandomSpawnPosition(index);
+
+            // 랜덤 인덱스 생성 조건 수정
+            int randomIndex;
+            if (count<=2)
             {
-                Vector2 spawnPosition = randomMap.GetRandomSpawnPosition(index);
-
-                int randomIndex = UnityEngine.Random.Range(0, prefabs.Length);
-
-                GameObject newEnemy = Instantiate(prefabs[randomIndex], spawnPosition, Quaternion.identity);
-
-                newEnemy.transform.parent = enemyBox.transform;
-
+                randomIndex = UnityEngine.Random.Range(0, 2);
             }
-        getBoxPoint();
+            else if (count <= 4)
+            {
+                randomIndex = UnityEngine.Random.Range(0, 3);
+            }
+            else
+            {
+                randomIndex = UnityEngine.Random.Range(1, 4);
+            }
+
+            GameObject newEnemy = Instantiate(prefabs[randomIndex], spawnPosition, Quaternion.identity);
+            newEnemy.transform.parent = enemyBox.transform;
+            yield return new WaitForSeconds(1f);
+        }
+        count++;
     }
-    private void getBoxPoint()
+
+    public void getBoxPoint()
     {
         this.b = randomMap.b;
-        count++;
         if (count == b.Count && b != null)
         {
             GameObject spawnedPrefab = Instantiate(Portal, b[index], Quaternion.identity);
-            spawnedPrefab.SetActive(false);
+            spawnedPrefab.SetActive(true);
             count++;
         }
     }

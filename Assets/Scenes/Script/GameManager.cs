@@ -13,8 +13,15 @@ public class GameManager : MonoBehaviour
     public bool isAction =false;
     [SerializeField]
     public GameObject SkillUi;
-    private bool isPaused = false;
-    private Rigidbody2D rb;
+    [SerializeField]
+    private GameObject startUI;
+    [SerializeField]
+    private GameObject nexttUI;
+    [SerializeField]
+    private GameObject PortalUI;
+    [SerializeField] GameObject BossRoom;
+    [SerializeField] GameObject Level1Boss;
+    [SerializeField] GameObject bossStatus;
 
 
     public void Action(GameObject scanObj)
@@ -31,6 +38,13 @@ public class GameManager : MonoBehaviour
             talkText.text = "이것의 이름은" + scanObject.name;
         }
         talkPanel.SetActive(isAction);
+
+    }
+    public void showBoss()
+    {
+        BossRoom.SetActive(true);
+        Level1Boss.SetActive(true);
+        bossStatus.SetActive(true);
 
     }
 

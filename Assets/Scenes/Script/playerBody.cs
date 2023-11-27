@@ -26,7 +26,7 @@ public class playerBody : MonoBehaviour
         }
         if (collision.CompareTag("BossAttack2"))
         {
-            StartCoroutine(player.HurtDelay(1.2f, 65));
+            StartCoroutine(player.HurtDelay(1.2f, 50));
         }
         if (collision.CompareTag("BossAttack3"))
         {
@@ -45,6 +45,16 @@ public class playerBody : MonoBehaviour
         if (collision.CompareTag("FinalAttack"))
         {
             StartCoroutine(player.HurtDelay(1.2f, 100));
+        }
+        if (collision.CompareTag("potion1"))
+        {
+            player.healHP(1);
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("potion2"))
+        {
+            player.healHP(2);
+            Destroy(collision.gameObject);
         }
     }
 }

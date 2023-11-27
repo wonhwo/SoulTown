@@ -96,11 +96,21 @@ public class player : MonoBehaviour
         {
             scanObject = collision.gameObject;
             isEventing = true;
-            
+
         }
         if (collision.CompareTag("Portal"))
         {
             transform.position = (Vector2)divideSpace.spaceList[0].Center();
+
+        }
+        if (collision.CompareTag("Portal1"))
+        {
+            transform.position = new Vector2(-33.87f, -191.54f);
+        }
+        if (collision.CompareTag("Portal2"))
+        {
+            transform.position = new Vector2(-20f, -134.4f);
+            gamemanager.showBoss();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -156,10 +166,9 @@ public class player : MonoBehaviour
     IEnumerator SpawnMonsterWithDelay(int lastCharacter)
     {
         yield return new WaitForSeconds(1.0f); // 1초 대기
-        Debug.Log(lastCharacter+","+isEnemy);
         if (isEnemy)
         {
-           Spawner.SpawnEnemiesWithDelay(lastCharacter); // 몬스터 소환
+            StartCoroutine(Spawner.SpawnEnemiesWithDelay(lastCharacter)); // 몬스터 소환
 
         }
         else
@@ -237,5 +246,24 @@ public class player : MonoBehaviour
 
         // 원래 스피드로 복구
         Speed = 8.0f;
+    }
+    public void healHP(int index)
+    {
+        int healAmount = 0;
+        if (index == 1)
+        {
+            healAmount = 20;
+        }
+        else if (index == 2)
+        {
+
+            healAmount = 50;
+        }
+        // HP를 증가시키고 100을 넘지 않도록 제한
+        HP = Mathf.Clamp(HP + healAmount, 0, 100);
+
+        // HP바 갱신
+        HPbar.fillAmount = (float)HP / 100;
+
     }
 }

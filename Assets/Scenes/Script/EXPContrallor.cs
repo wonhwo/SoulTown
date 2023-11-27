@@ -30,20 +30,20 @@ public class EXPContrallor : MonoBehaviour
     {
         if (enemyName.Equals("slime(Clone)"))
         {
-            EXP += 10;
+            EXP += 5;
             enemyName = "";
         }
         if (enemyName.Equals("Goblin1(Clone)"))
         {
-            EXP += 20;
+            EXP += 10;
             enemyName = "";
         }
         if (enemyName.Equals("Skeleton(Clone)"))
         {
-            EXP += 30;
+            EXP += 20;
             enemyName = "";
         }
-        if (enemyName.Equals("MageEnemy1(Clone)"))
+        if (enemyName.Equals("MageEnemy(Clone)"))
         {
             EXP += 30;
             enemyName = "";

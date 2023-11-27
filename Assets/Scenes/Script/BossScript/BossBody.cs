@@ -15,11 +15,11 @@ public class BossBody : MonoBehaviour
 
 
     private static int bossHP = 0; // 시작할 때 체력을 0으로 초기화
-    private const int bossMaxHP = 1000;
+    private const int bossMaxHP = 1500;
     private static int bossShield = 1; // 시작할 때 쉴드를 0으로 초기화
     private const int bossMaxShield = 100;
     private static int damage;
-    private static int shiedDamage=100;
+    private static int shiedDamage=25;
 
     private void Awake()
     {
