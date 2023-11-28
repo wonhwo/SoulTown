@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SkillUiContrallor : MonoBehaviour
@@ -12,18 +13,24 @@ public class SkillUiContrallor : MonoBehaviour
     private Button Skill1Button;
     [SerializeField]
     private Button Skill2Button;
+    [SerializeField]
+    private GameObject backDrop;
 
     private void Start()
     {
-        initialPosition = transform.position;
-        Skill1Button.onClick.AddListener(MoveUpSkillUi);  // 이전에는 MoveUpSkillUi를 호출했던 것을 MoveDownSkillUi로 수정
-        Skill2Button.onClick.AddListener(MoveUpSkillUi);
+        if (SceneManager.GetActiveScene().name.Equals("Dungeon"))
+        {
+            initialPosition = transform.position;
+            Skill1Button.onClick.AddListener(MoveUpSkillUi);  // 이전에는 MoveUpSkillUi를 호출했던 것을 MoveDownSkillUi로 수정
+            Skill2Button.onClick.AddListener(MoveUpSkillUi);
+        }
     }
 
 
 
 public void MoveDownSkillUi()
 {
+        backDrop.SetActive(true);
     Time.timeScale = 0f;
 
         // 트윈 애니메이션 설정
@@ -44,7 +51,7 @@ public void MoveDownSkillUi()
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() =>
                 {
-                    Debug.Log("test");
+                    backDrop.SetActive(false);
                     Time.timeScale = 1f;
                 })
                 .SetUpdate(true); // 이 부분을 추가하여 IgnoreTimeScale(true) 설정

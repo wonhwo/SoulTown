@@ -121,8 +121,8 @@ public class MakeRandomMap : MonoBehaviour
     public Vector2 GetRandomSpawnPosition(int index)
     {
         // 중심 좌표를 기준으로 가로 길이의 절반과 세로 길이의 절반 계산
-        float halfWidth = (a[index].x-1) / 2;
-        float halfHeight = (a[index].y-1) / 2;
+        float halfWidth = (a[index].x-2) / 2;
+        float halfHeight = (a[index].y-2) / 2;
 
         // 랜덤한 X 및 Y 좌표 생성
         float randomX = UnityEngine.Random.Range(-halfWidth, halfWidth);

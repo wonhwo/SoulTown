@@ -39,7 +39,20 @@ public class Spawner : MonoBehaviour
             }
             else
             {
-                randomIndex = UnityEngine.Random.Range(1, 4);
+                float randomValue = UnityEngine.Random.value;
+
+                if (randomValue < 0.5f)
+                {
+                    randomIndex = 1; // 50% È®·ü
+                }
+                else if (randomValue < 0.75f)
+                {
+                    randomIndex = 2; // 25% È®·ü
+                }
+                else
+                {
+                    randomIndex = 3; // 25% È®·ü
+                }
             }
 
             GameObject newEnemy = Instantiate(prefabs[randomIndex], spawnPosition, Quaternion.identity);

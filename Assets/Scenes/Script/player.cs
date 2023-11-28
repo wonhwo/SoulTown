@@ -42,6 +42,11 @@ public class player : MonoBehaviour
     string currentSceneName;
     [SerializeField]
     private GameObject shield;
+    [SerializeField]
+    private GameObject GameOver;
+    [SerializeField]
+    playerBody playerBody;
+    public AudioSource bossBGM; public AudioSource BGM;public AudioSource damageBGM;
     void Awake()
     {
         gamemanager = FindObjectOfType<GameManager>();
@@ -66,6 +71,10 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(ActivateShieldForDuration(1.0f));
+        }
+        if (HP <= 0)
+        {
+            Dead();
         }
     }
     private bool isShieldActive = false;
@@ -110,6 +119,7 @@ public class player : MonoBehaviour
         if (collision.CompareTag("Portal2"))
         {
             transform.position = new Vector2(-20f, -134.4f);
+            bossBGM.Play();BGM.Stop();
             gamemanager.showBoss();
         }
     }
@@ -179,6 +189,7 @@ public class player : MonoBehaviour
     }
     public IEnumerator HurtDelay(float delay,int damage)
     {
+        damageBGM.Play();
         isHurt = true;
         spriteList.ToggleTransparency();
         Physics2D.IgnoreLayerCollision(10, 6, true);
@@ -265,5 +276,15 @@ public class player : MonoBehaviour
         // HP바 갱신
         HPbar.fillAmount = (float)HP / 100;
 
+    }
+    private void Dead()
+    {
+        if (SceneManager.GetActiveScene().name.Equals("Dungeon"))
+        {
+            animation.SetTrigger("Die");
+            rigid.constraints = RigidbodyConstraints2D.FreezePosition;
+            playerBody.GetComponent<CapsuleCollider2D>().enabled = false;
+            GameOver.SetActive(true);
+        }
     }
 }

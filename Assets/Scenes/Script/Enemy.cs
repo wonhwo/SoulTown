@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private SPUM_SpriteList _spriteList;
+    private AudioSource damageBGM;
     private GameObject expGameObject;
     private EXPContrallor expContrallor;
     private GameObject parentOj;
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        damageBGM=GameObject.Find("damageBGM").GetComponent<AudioSource>();
         expGameObject = GameObject.Find("EXPEmptyBar");
         parentOj = transform.parent.parent.gameObject;
         hp = (int)enemyStats.health;
@@ -71,16 +74,17 @@ public class Enemy : MonoBehaviour
         // 데미지 처리
         animator.SetTrigger("Hurt");
         Hurt();
-
+        if(!gameObject.name.Equals("slime(Clone)")) _spriteList.ToggleTransparency();
         // 0.1초 동안 대기
-        yield return new WaitForSeconds(0.01f);
-
+        yield return new WaitForSeconds(0.1f);
+        if (!gameObject.name.Equals("slime(Clone)")) _spriteList.ToggleTransparency();
         // 데미지를 받을 수 있는 상태로 변경
         canTakeDamage = true;
     }
     public void Hurt()
     {
         Debug.Log("hurt");
+        damageBGM.Play();
         hp = hp - damage;
         // 현재 체력이 0에서 maxHealth 사이의 값을 가지도록 보정
         int clampedHealth = Mathf.Clamp(hp, 0, maxHealth);

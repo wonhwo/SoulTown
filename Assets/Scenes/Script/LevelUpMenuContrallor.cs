@@ -21,6 +21,8 @@ public class LevelUpMenuContrallor : MonoBehaviour
     private string[] SkillDamage = new string[] { "25", "50", "30", "10", "30" };
     private int[] plusDamage  = new int[] {5,1,5,5,5};
     private List<int> selectedIndices = new List<int>();
+    [SerializeField]
+    private Image SkillOJ;
 
     int randomIndex;
     private void Start()
@@ -45,7 +47,7 @@ public class LevelUpMenuContrallor : MonoBehaviour
             select(randomIndex);
 
         }
-        else
+        else if (!selectedIndices.Contains(randomIndex))
         {
             num = 0;
             isdindices = false;
@@ -65,27 +67,33 @@ public class LevelUpMenuContrallor : MonoBehaviour
             case 0:
                 weaponSetting.setSkill("SpeedSlash", num);
                 selectedIndices.RemoveAll(index => index != 0);
+                SkillOJ.sprite = imgAraay[randomIndex];
                 break;
             case 1:
                 weaponSetting.setSkill("SpearSlash", num);
                 selectedIndices.RemoveAll(index => index != 1);
+                SkillOJ.sprite = imgAraay[randomIndex];
                 break;
             case 2:
                 weaponSetting.setSkill("SquadSlash", num);
                 selectedIndices.RemoveAll(index => index != 2);
+                SkillOJ.sprite = imgAraay[randomIndex];
                 break;
             case 3:
                 weaponSetting.setSkill("SuperSlash", num);
                 selectedIndices.RemoveAll(index => index != 3);
+                SkillOJ.sprite = imgAraay[randomIndex];
                 break;
             case 4:
                 weaponSetting.setSkill("clawsSlash", num);
                 selectedIndices.RemoveAll(index => index != 4);
+                SkillOJ.sprite = imgAraay[randomIndex];
                 break;
         }
     }
     private void defaultSelect(int randomIndex) {
         SkillImage.sprite = imgAraay[randomIndex];
+
         SkillName1UI1.text = SkillName[randomIndex];
         SkilldamageUI1.text = "µ¥¹ÌÁö : " + SkillDamage[randomIndex];
     }

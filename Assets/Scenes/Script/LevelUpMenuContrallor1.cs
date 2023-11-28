@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class LevelUpMenuContrallor1 : MonoBehaviour
 {
     public Sprite[] imgAraay;
@@ -20,11 +22,13 @@ public class LevelUpMenuContrallor1 : MonoBehaviour
     private string[] SkillName = new string[] { "스피드슬레쉬", "스피어슬레쉬", "스퀘어슬레쉬", "슈퍼슬레쉬", "크로우슬레쉬", "라인슬레쉬" };
     private string[] SkillDamage = new string[] { "25", "50", "30", "10", "30", "20" };
     private int[] plusDamage = new int[] { 5, 1, 5, 5, 5 };
-    private List<int> selectedIndices = new List<int>();
+    private List<int> selectedIndices1 = new List<int>();
+    [SerializeField]
+    private Image SkillOJ1;
 
     private void Start()
     {
-        ImageSelect();
+        
     }
     private void Update()
     {
@@ -37,21 +41,21 @@ public class LevelUpMenuContrallor1 : MonoBehaviour
         // 배열에서 랜덤하게 인덱스를 선택
         randomIndex = Random.Range(0, imgAraay.Length);
         
-        if (selectedIndices.Contains(randomIndex))
+        if (selectedIndices1.Contains(randomIndex))
         {
             num += plusDamage[randomIndex];
             isdindices = true;
             select(randomIndex);
 
         }
-        else
+        else if(!selectedIndices1.Contains(randomIndex))
         {
             num = 0;
             isdindices = false;
             defaultSelect(randomIndex);
 
         }
-        selectedIndices.Add(randomIndex);
+        selectedIndices1.Add(randomIndex);
 
 
         // 선택된 이미지를 SkillImage에 할당
@@ -63,23 +67,28 @@ public class LevelUpMenuContrallor1 : MonoBehaviour
         {
             case 0:
                 weaponSetting.setSkill2("SpeedSlash", num);
-                selectedIndices.RemoveAll(index => index != 0);
+                selectedIndices1.RemoveAll(index => index != 0);
+                SkillOJ1.sprite = imgAraay[randomIndex];
                 break;
             case 1:
                 weaponSetting.setSkill2("SpearSlash", num);
-                selectedIndices.RemoveAll(index => index != 1);
+                selectedIndices1.RemoveAll(index => index != 1);
+                SkillOJ1.sprite = imgAraay[randomIndex];
                 break;
             case 2:
                 weaponSetting.setSkill2("SquadSlash", num);
-                selectedIndices.RemoveAll(index => index != 2);
+                selectedIndices1.RemoveAll(index => index != 2);
+                SkillOJ1.sprite = imgAraay[randomIndex];
                 break;
             case 3:
                 weaponSetting.setSkill2("SuperSlash", num);
-                selectedIndices.RemoveAll(index => index != 3);
+                selectedIndices1.RemoveAll(index => index != 3);
+                SkillOJ1.sprite = imgAraay[randomIndex];
                 break;
             case 4:
                 weaponSetting.setSkill2("clawsSlash", num);
-                selectedIndices.RemoveAll(index => index != 4);
+                selectedIndices1.RemoveAll(index => index != 4);
+                SkillOJ1.sprite = imgAraay[randomIndex];
                 break;
         }
     }

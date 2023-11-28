@@ -48,8 +48,11 @@ public class MenuDOtween : MonoBehaviour
 
     void QuitButtonClicked()
     {
-        Debug.Log("Quit Button Clicked");
-        // 버튼 클릭 시 수행할 작업 추가
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
 }

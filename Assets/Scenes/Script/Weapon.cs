@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public AudioSource A1; public AudioSource A2;
     [SerializeField]
     private player player;
     [SerializeField]
@@ -93,12 +94,14 @@ public class Weapon : MonoBehaviour
         parentAnimator.SetTrigger("Attack");
         if (countAttack == 1)
         {
+            A1.Play();
             isSlash = true;
             sendAttack();
             animation.Play(weaponSetting.SelectfirstAttack());
             countAttack++;
         }
         else if(countAttack == 2) {
+            A2.Play();
             isSlash = true;
             sendAttack();
             animation.Play(weaponSetting.Selectlastttack());

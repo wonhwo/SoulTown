@@ -12,11 +12,20 @@ public class dropPostion : MonoBehaviour
         if (collision.CompareTag("weapon"))
         {
 
-            if (Random.value <= spawnProbability && !gameObject.tag.Equals("barrierBraek"))
+            if (Random.value <= spawnProbability && gameObject.tag.Equals("Energy"))
             {
                 // 파괴되면 5%의 확률로 새로운 프리팹을 현재 위치에 생성
                 Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
             }
+        }
+    }
+    private void OnDestroy()
+    {
+        if (gameObject.name.Equals("EnemyRoot") && Random.value <= spawnProbability)
+        {
+            Debug.Log("ASdf");
+            // 파괴되면 5%의 확률로 새로운 프리팹을 현재 위치에 생성
+            Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
         }
     }
 }

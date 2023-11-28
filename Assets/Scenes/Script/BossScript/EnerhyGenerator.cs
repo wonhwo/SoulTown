@@ -16,6 +16,10 @@ public class EnerhyGenerator : MonoBehaviour
     public float interval = 5; 
 
     private int currentActiveLightIndex = 0; // 현재 활성화된 라이트의 인덱스
+    private void Start()
+    {
+        lastSpawnTime = Time.time;
+    }
 
     private void Update()
     {
@@ -48,6 +52,11 @@ public class EnerhyGenerator : MonoBehaviour
                 currentActiveLightIndex = (currentActiveLightIndex - 1 + LightCount.Length) % LightCount.Length; // 이전 라이트 인덱스 계산
                 timer = 0f; // 타이머 초기화
             }
+        }
+        if (HasSpawnedPrefab())
+        {
+            timer = 0f;
+            lastSpawnTime = Time.time;
         }
     }
 
@@ -91,12 +100,21 @@ public class EnerhyGenerator : MonoBehaviour
     void SpawnPrefab(Transform spawnPoint)
     {
         // lastSpawnTime이 초기화되지 않았거나, 일정 시간 이상 경과했을 때 스폰을 허용
-        if (lastSpawnTime == 0f || (Time.time - lastSpawnTime >= delay && transform.childCount == 0))
+        if (lastSpawnTime == 0f || (Time.time - lastSpawnTime >= delay && !HasSpawnedPrefab()))
         {
             Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity, gameObject.transform);
 
-            // 스폰된 시간 갱신
+            // 스폰된 후에 타이머 초기화
             lastSpawnTime = Time.time;
+
+            // 추가된 부분: 스폰 후에도 타이머를 초기화합니다.
+            timer = 0f;
         }
+    }
+
+    bool HasSpawnedPrefab()
+    {
+        // 자식 개체의 존재 여부를 확인하여 반환
+        return transform.childCount > 0;
     }
 }
