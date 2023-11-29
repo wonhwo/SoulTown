@@ -24,11 +24,10 @@ public class Weapon : MonoBehaviour
         animation = GetComponent<Animator>();
         weaponSetting = GetComponent<WeaponSetting>();
     }
-    void FixedUpdate()
+    void Update()
     {
         setdamage();
         weaponAnimation();
-        isslash();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -96,18 +95,18 @@ public class Weapon : MonoBehaviour
     int countAttack = 1;
     private IEnumerator AnimationDelay()
     {
+        isSlash = true;
         parentAnimator.SetTrigger("Attack");
         if (countAttack == 1)
         {
             A1.Play();
-            isSlash = true;
+            
             sendAttack();
             animation.Play(weaponSetting.SelectfirstAttack());
             countAttack++;
         }
         else if(countAttack == 2) {
             A2.Play();
-            isSlash = true;
             sendAttack();
             animation.Play(weaponSetting.Selectlastttack());
             countAttack = 1;
@@ -126,23 +125,5 @@ public class Weapon : MonoBehaviour
         damage=weaponSetting.damage;
         delay = weaponSetting.delay;
     }
-    public void isslash()
-    {
-        if (currentScene != SceneManager.GetActiveScene().name)
-        {
-            // 씬이 변경된 경우
-            Debug.Log("현재 씬: " + currentScene);
-            Debug.Log("새로운 씬: " + SceneManager.GetActiveScene().name);
 
-            // 여기에 조건을 추가하면 됩니다.
-            // 예를 들어, 특정 씬으로 이동했을 때 특정 동작 수행
-            if (SceneManager.GetActiveScene().name == "Town2")
-            {
-                isSlash = true;
-            }
-
-            // 현재 씬을 업데이트
-            currentScene = SceneManager.GetActiveScene().name;
-        }
-    }
 }
