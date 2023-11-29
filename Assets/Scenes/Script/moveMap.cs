@@ -7,6 +7,8 @@ public class moveMap : MonoBehaviour
 {
     public string nextSceneName; // 이동할 다음 씬의 이름
     private GameManager gameManager;
+    [SerializeField]
+    Weapon weapon;
     private void Awake()
     {
         gameManager=FindObjectOfType<GameManager>();

@@ -16,7 +16,7 @@ public class BoosEnemySpawnerController : MonoBehaviour
         if (transform.childCount == 0 && !spawning)
         {
             // 타이머가 30초 이상 경과한 경우 소환 수행
-            if (spawnTimer >= 30f)
+            if (spawnTimer >= 15f)
             {
                 SpawnPrefab();
                 spawnTimer = 0f; // 타이머 초기화

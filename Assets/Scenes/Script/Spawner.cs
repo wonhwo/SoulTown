@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -21,7 +19,7 @@ public class Spawner : MonoBehaviour
     public IEnumerator SpawnEnemiesWithDelay(int index)
     {
         this.index = index;
-        int enemyCount = 10 + (5 * count); // 10부터 5씩 증가
+        int enemyCount = 5 + (5 * count); // 10부터 5씩 증가
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -29,11 +27,11 @@ public class Spawner : MonoBehaviour
 
             // 랜덤 인덱스 생성 조건 수정
             int randomIndex;
-            if (count<=2)
+            if (count<=1)
             {
                 randomIndex = UnityEngine.Random.Range(0, 2);
             }
-            else if (count <= 4)
+            else if (count <= 2)
             {
                 randomIndex = UnityEngine.Random.Range(0, 3);
             }

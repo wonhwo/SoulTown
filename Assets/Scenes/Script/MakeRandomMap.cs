@@ -1,14 +1,9 @@
-using MoreMountains.TopDownEngine;
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using TMPro;
-using UnityEditor.Build.Reporting;
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
+
 // 방을 만들고 방을 기준으로 복도를 만들고 벽을 만드는 클래스
 public class MakeRandomMap : MonoBehaviour
 {
@@ -32,6 +27,7 @@ public class MakeRandomMap : MonoBehaviour
     private TileBase tile;
     [SerializeField]
     public GameObject rectangleBox;
+
 
 
 

@@ -70,7 +70,7 @@ public class player : MonoBehaviour
             //enemyBoxcontroller.findEnemy();
         if (Input.GetKeyDown(KeyCode.X))
         {
-            StartCoroutine(ActivateShieldForDuration(1.0f));
+            //StartCoroutine(ActivateShieldForDuration(1.0f));
         }
         if (HP <= 0)
         {

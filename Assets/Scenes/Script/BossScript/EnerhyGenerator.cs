@@ -12,10 +12,12 @@ public class EnerhyGenerator : MonoBehaviour
     bool monsterCount2 = false;
     bool monsterCount3 = false;
     bool monsterCount4 = false;
-    private float timer = 0f;
-    public float interval = 5; 
+    private float timerLight = 0f;
+    private float timerPrefab = 0f;
+    public float interval = 5;
 
     private int currentActiveLightIndex = 0; // 현재 활성화된 라이트의 인덱스
+
     private void Start()
     {
         lastSpawnTime = Time.time;
@@ -25,40 +27,51 @@ public class EnerhyGenerator : MonoBehaviour
     {
         trueMonsterCount();
         SpanerChildCount();
-        
 
         if (monsterCount1 && monsterCount2 && monsterCount3 && monsterCount4)
         {
-            timer += Time.deltaTime;
+            timerLight += Time.deltaTime;
 
             // 일정 간격으로 체크하고 라이트를 활성화
-            if (timer >= interval)
+            if (timerLight >= 10)
             {
                 ActivateLight(currentActiveLightIndex, true); // 현재 라이트 활성화
                 currentActiveLightIndex = (currentActiveLightIndex + 1) % LightCount.Length; // 다음 라이트 인덱스 계산
-                timer = 0f; // 타이머 초기화
+                timerLight = 0f; // 타이머 초기화
             }
-
-            SpawnPrefab(transform);
         }
         else
         {
             // 조건이 충족되지 않았을 때 일정 간격으로 이전 라이트를 비활성화
-            timer += Time.deltaTime;
+            timerLight += Time.deltaTime;
 
-            if (timer >= interval)
+            if (timerLight >= 5)
             {
                 ActivateLight(currentActiveLightIndex, false); // 현재 라이트 비활성화
                 currentActiveLightIndex = (currentActiveLightIndex - 1 + LightCount.Length) % LightCount.Length; // 이전 라이트 인덱스 계산
-                timer = 0f; // 타이머 초기화
+                timerLight = 0f; // 타이머 초기화
             }
         }
-        if (HasSpawnedPrefab())
+
+        // 프리팹 소환에 대한 타이머 로직 추가
+        if (monsterCount1 && monsterCount2 && monsterCount3 && monsterCount4)
         {
-            timer = 0f;
-            lastSpawnTime = Time.time;
+            timerPrefab += Time.deltaTime;
+
+            if (timerPrefab >= interval)
+            {
+                if (HasSpawnedPrefab())
+                {
+                    timerPrefab = 0f;
+                    lastSpawnTime = Time.time;
+                }
+
+                SpawnPrefab(transform);
+            }
         }
-    }
+    
+
+}
 
     // 라이트를 활성화 또는 비활성화하는 함수
     private void ActivateLight(int index, bool activate)
@@ -108,7 +121,7 @@ public class EnerhyGenerator : MonoBehaviour
             lastSpawnTime = Time.time;
 
             // 추가된 부분: 스폰 후에도 타이머를 초기화합니다.
-            timer = 0f;
+            timerPrefab = 0f;
         }
     }
 

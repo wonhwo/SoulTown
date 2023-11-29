@@ -12,6 +12,7 @@ public class LightTableController : MonoBehaviour
         // 자식 요소의 개수가 4인지 확인
         if (activeChildCount == 4)
         {
+            Debug.Log("asdf");
             // 4가 되면 원하는 함수를 실행
             Invoke("YourFunctionToExecute", 5f);
         }

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Weapon : MonoBehaviour
 {
@@ -16,15 +17,18 @@ public class Weapon : MonoBehaviour
     private static int damage;
     float delay;
     private WeaponSetting weaponSetting;
+    private string currentScene;
     void Awake()
     {
+        currentScene = SceneManager.GetActiveScene().name;
         animation = GetComponent<Animator>();
         weaponSetting = GetComponent<WeaponSetting>();
     }
-    void Update()
+    void FixedUpdate()
     {
         setdamage();
         weaponAnimation();
+        isslash();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +48,8 @@ public class Weapon : MonoBehaviour
         }
     }
     int countS = 1;
-    static bool isSlash = false;
+    [SerializeField]
+    public  bool isSlash=false;
     Vector3 playerTransform;
     private void weaponAnimation()
     {
@@ -120,5 +125,24 @@ public class Weapon : MonoBehaviour
     {
         damage=weaponSetting.damage;
         delay = weaponSetting.delay;
+    }
+    public void isslash()
+    {
+        if (currentScene != SceneManager.GetActiveScene().name)
+        {
+            // 씬이 변경된 경우
+            Debug.Log("현재 씬: " + currentScene);
+            Debug.Log("새로운 씬: " + SceneManager.GetActiveScene().name);
+
+            // 여기에 조건을 추가하면 됩니다.
+            // 예를 들어, 특정 씬으로 이동했을 때 특정 동작 수행
+            if (SceneManager.GetActiveScene().name == "Town2")
+            {
+                isSlash = true;
+            }
+
+            // 현재 씬을 업데이트
+            currentScene = SceneManager.GetActiveScene().name;
+        }
     }
 }

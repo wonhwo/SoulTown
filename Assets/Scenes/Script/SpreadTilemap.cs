@@ -1,11 +1,9 @@
-using MoreMountains.Tools;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using UnityEngine.WSA;
+
 
 //바닥, 벽을 설치하는 스크립트
 public class SpreadTilemap : MonoBehaviour

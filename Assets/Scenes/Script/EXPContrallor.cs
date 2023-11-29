@@ -10,7 +10,7 @@ public class EXPContrallor : MonoBehaviour
     [SerializeField]
     LevelUpMenuContrallor1 levelUpMenuContrallor1;
     private int EXP=0;
-    private int EXPMax = 100;
+    private int EXPMax = 50;
     [SerializeField]
     private Image EXPbar;
     [SerializeField]

@@ -14,6 +14,8 @@ public class SkillUiContrallor : MonoBehaviour
     [SerializeField]
     private Button Skill2Button;
     [SerializeField]
+    private Button Skill3Button;
+    [SerializeField]
     private GameObject backDrop;
 
     private void Start()
@@ -23,6 +25,7 @@ public class SkillUiContrallor : MonoBehaviour
             initialPosition = transform.position;
             Skill1Button.onClick.AddListener(MoveUpSkillUi);  // 이전에는 MoveUpSkillUi를 호출했던 것을 MoveDownSkillUi로 수정
             Skill2Button.onClick.AddListener(MoveUpSkillUi);
+            Skill3Button.onClick.AddListener(MoveUpSkillUi);
         }
     }
 
